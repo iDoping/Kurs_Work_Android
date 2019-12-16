@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Главная страница</string>
+    <string name="costs_button">Добавить</string>
+    <string name="add_costs_button">Добавить</string>
+    <string name="income_button">Добавить</string>
+    <string name="graphic_info_button">Перейти</string>
+    <string name="planning_button">Перейти</string>
+    <string name="costs_textview">Расходы</string>
+    <string name="income_textview">Доходы</string>
+    <string name="graphic_info_textview">Информация о доходах и расходах</string>
+    <string name="planning_textview">Планирование финансов</string>
+
+</resources>
