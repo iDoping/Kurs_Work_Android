@@ -18,7 +18,7 @@ public class Choose_income extends AppCompatActivity implements CustomDialogFrag
     ListView incomeCategoryList;
     DBHelper dbHelper;
     ArrayList<String> listItemIncomes;
-    ArrayAdapter adaptercosts;
+    ArrayAdapter adapterincomes;
     TextView SelectedIncome;
 
     @Override
@@ -49,10 +49,10 @@ public class Choose_income extends AppCompatActivity implements CustomDialogFrag
 
     public void onDeleteNewIncomeClick(View view) {
         CustomDialogFragment dialog = new CustomDialogFragment();
-        dialog.show(getSupportFragmentManager(), "custom2");
+        dialog.show(getSupportFragmentManager(), "custom");
     }
 
-    public void OnYesClicked() {
+    public void OnYesClickedIncomes() {
         dbHelper.DeleteIncome(SelectedIncome.getText().toString());
         listItemIncomes.clear();
         SelectIncomesToList();
@@ -66,8 +66,8 @@ public class Choose_income extends AppCompatActivity implements CustomDialogFrag
         while (cursor.moveToNext()) {
             listItemIncomes.add(cursor.getString(1));
         }
-        adaptercosts = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItemIncomes);
-        incomeCategoryList.setAdapter(adaptercosts);
+        adapterincomes = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItemIncomes);
+        incomeCategoryList.setAdapter(adapterincomes );
     }
 
     @Override

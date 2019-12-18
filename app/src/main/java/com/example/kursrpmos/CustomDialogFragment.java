@@ -44,7 +44,7 @@ public class CustomDialogFragment extends DialogFragment {
         try {
             listener = (DialogListenerCosts) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "lol");
+            throw new ClassCastException(context.toString() + " Must implement DialogListenerCosts");
         }
     }
 }
