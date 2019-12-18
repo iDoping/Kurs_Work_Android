@@ -24,11 +24,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onPlanningButtonClick(View view) {
-        Intent intent = new Intent(MainActivity.this, Choose_cost.class);
-        startActivity(intent);
-    }
-
     public void onGraphicInfoClick(View view) {
         Intent intent = new Intent(MainActivity.this, Statistics.class);
         startActivity(intent);
@@ -36,6 +31,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void onGraphicIncomesInfo(View view) {
         Intent intent = new Intent(MainActivity.this, Statistics_income.class);
+        startActivity(intent);
+    }
+
+    public void onCostSettingsClick(View view) {
+        Intent intent = new Intent(MainActivity.this, Choose_cost.class);
+        startActivity(intent);
+    }
+
+    public void onIncomeSettingsClick(View view) {
+        Intent intent = new Intent(MainActivity.this, Choose_income.class);
         startActivity(intent);
     }
 }

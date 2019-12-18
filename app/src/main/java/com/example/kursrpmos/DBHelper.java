@@ -95,6 +95,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void DeleteIncome(String label) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM typecosts where NAME_OF_COST = '" + label + "'");
+        db.close();
+    }
+
     public List<String> getAllLabels() {
         List<String> labels = new ArrayList<String>();
         String selectQuery = "SELECT  * FROM " + TABLE_TYPECOSTS;
@@ -191,6 +197,26 @@ public class DBHelper extends SQLiteOpenHelper {
         return labels;
     }
 
+    public List<String> LabelsOfIncomes() {
+
+        List<String> labels = new ArrayList<String>();
+        labels.add(" ");
+        String selectQuery = "SELECT SUM(INC_SUM),NAME_OF_INC FROM INCOMES JOIN TYPEINCOMES ON INCOMES.INC_CATEGORY = TYPEINCOMES._id group by INC_CATEGORY ";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return labels;
+    }
+
     public List<String> test() {
 
         List<String> labels = new ArrayList<String>();
@@ -247,6 +273,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor SelectCostsToList() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_TYPECOSTS;
+        return db.rawQuery(query, null);
+    }
+
+    public Cursor SelectIncomesToList() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_TYPEINCOMES;
         return db.rawQuery(query, null);
     }
 }

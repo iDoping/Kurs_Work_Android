@@ -5,13 +5,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/SelectedCost"
+        android:id="@+id/SelectedIncome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp" />
 
     <ListView
-        android:id="@+id/costCategoryList"
+        android:id="@+id/incomeCategoryList"
         android:layout_width="match_parent"
         android:layout_height="520dp"
         android:gravity="center">
@@ -24,19 +24,19 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnAddNewCost"
+            android:id="@+id/btnAddNewIncome"
             android:layout_width="8dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onAddNewCostClick"
+            android:onClick="onAddNewIncomeClick"
             android:text="Добавить" />
 
         <Button
-            android:id="@+id/btnDeleteNewCost"
+            android:id="@+id/btnDeleteNewIncome"
             android:layout_width="8dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onDeleteNewCostClick"
+            android:onClick="onDeleteNewIncomeClick"
             android:text="Удалить" />
 
     </LinearLayout>

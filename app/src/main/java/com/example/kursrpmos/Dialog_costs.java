@@ -14,7 +14,7 @@ public class Dialog_costs extends AppCompatActivity {
     Button btnCancelCost, btnAddNewCost;
     EditText etAddCostDialog;
 
-    public final static String TEMP = "com.example.kursrpmos.Dialog_costs.TEMP2";
+    public final static String TEMP = "com.example.kursrpmos.Dialog_costs.TEMP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

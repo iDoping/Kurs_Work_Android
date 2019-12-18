@@ -8,8 +8,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-public class CustomDialogFragment extends DialogFragment {
-   private DialogListenerCosts listener;
+public class CustomDialogFragmentIncomes extends DialogFragment {
+    private DialogListenerIncomes listener;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -21,7 +21,7 @@ public class CustomDialogFragment extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    listener.OnYesClicked();
+                        listener.OnYesClicked();
                     }
                 })
                 .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
@@ -33,7 +33,7 @@ public class CustomDialogFragment extends DialogFragment {
                 .create();
     }
 
-    public interface DialogListenerCosts {
+    public interface DialogListenerIncomes {
         void OnYesClicked();
     }
 
@@ -42,7 +42,7 @@ public class CustomDialogFragment extends DialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (DialogListenerCosts) context;
+            listener = (DialogListenerIncomes) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "lol");
         }

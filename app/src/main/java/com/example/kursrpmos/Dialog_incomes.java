@@ -32,12 +32,12 @@ public class Dialog_incomes extends AppCompatActivity {
     }
 
     public void onAddNewIncomeClick(View view) {
-        Intent Intent = new Intent();
+        Intent answerIntent = new Intent();
         String label = etAddIncomeDialog.getText().toString();
         if (label.trim().length() > 0) {
 
-            setResult(RESULT_OK, Intent);
-            Intent.putExtra(TEMP2, label);
+            setResult(RESULT_OK, answerIntent);
+            answerIntent.putExtra(TEMP2, label);
             finish();
 
         } else {

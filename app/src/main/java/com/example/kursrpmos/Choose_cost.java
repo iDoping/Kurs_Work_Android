@@ -13,19 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class Choose_cost extends AppCompatActivity implements CustomDialogFragment.DialogListener {
+public class Choose_cost extends AppCompatActivity implements CustomDialogFragment.DialogListenerCosts {
 
     ListView costCategoryList;
     DBHelper dbHelper;
     ArrayList<String> listItem;
     ArrayAdapter adapter;
-    TextView SelectedCost, textViewtest;
+    TextView SelectedCost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_cost);
-        textViewtest = findViewById(R.id.textView);
         SelectedCost = findViewById(R.id.SelectedCost);
         dbHelper = new DBHelper(this);
         listItem = new ArrayList<>();
