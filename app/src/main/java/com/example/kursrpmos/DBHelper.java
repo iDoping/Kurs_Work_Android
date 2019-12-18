@@ -97,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void DeleteIncome(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM typecosts where NAME_OF_COST = '" + label + "'");
+        db.execSQL("DELETE FROM typeincomes where NAME_OF_INC = '" + label + "'");
         db.close();
     }
 

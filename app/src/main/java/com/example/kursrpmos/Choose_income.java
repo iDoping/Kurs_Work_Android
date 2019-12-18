@@ -48,7 +48,7 @@ public class Choose_income extends AppCompatActivity implements CustomDialogFrag
     }
 
     public void onDeleteNewIncomeClick(View view) {
-        CustomDialogFragment dialog = new CustomDialogFragment();
+        CustomDialogFragmentIncomes dialog = new CustomDialogFragmentIncomes();
         dialog.show(getSupportFragmentManager(), "custom");
     }
 
