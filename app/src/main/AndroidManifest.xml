@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Statistics"></activity>
+        <activity android:name=".Statistics_income"></activity>
+        <activity android:name=".Statistics" />
         <activity android:name=".Dialog_incomes" />
         <activity android:name=".Dialog_costs" />
         <activity android:name=".Dialog" />

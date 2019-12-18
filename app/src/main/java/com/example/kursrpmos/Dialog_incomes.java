@@ -7,14 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 public class Dialog_incomes extends AppCompatActivity {
 
     Button btnCancelIncome, btnAddNewIncome;
     EditText etAddIncomeDialog;
-    public final static String TEMP2 = "com.example.kursrpmos.Dialog_incomes.TEMP";
+
+    public final static String TEMP2 = "com.example.kursrpmos.Dialog_incomes.TEMP2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

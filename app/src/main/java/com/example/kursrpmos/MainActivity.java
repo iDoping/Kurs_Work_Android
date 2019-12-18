@@ -33,4 +33,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, Statistics.class);
         startActivity(intent);
     }
+
+    public void onGraphicIncomesInfo(View view) {
+        Intent intent = new Intent(MainActivity.this, Statistics_income.class);
+        startActivity(intent);
+    }
 }

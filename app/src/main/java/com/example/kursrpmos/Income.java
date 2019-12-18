@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Income extends AppCompatActivity implements View.OnClickListener {
+
     TextView tvIncomeDateForSQL;
     Button btnAddIncomes, btnReadIncomes;
     DBHelper dbHelper;
@@ -56,7 +58,7 @@ public class Income extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
 
         String income_sum = etSumIncome.getText().toString();
-        String income_date = etDateIncome.getText().toString();
+        String income_date = tvIncomeDateForSQL.getText().toString();
         String income_cat = spinIncCat.getSelectedItem().toString();
 
         SQLiteDatabase database = dbHelper.getWritableDatabase();
@@ -64,7 +66,14 @@ public class Income extends AppCompatActivity implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.btnAddIncomes:
-                dbHelper.InsertIncome(income_sum, income_date, income_cat);
+
+                try {
+                    dbHelper.InsertIncome(income_sum, income_date, income_cat);
+                    etSumIncome.setText("");
+                    Toast.makeText(getApplicationContext(), "Доход добавлен", Toast.LENGTH_SHORT).show();
+                } catch (ArithmeticException e) {
+                    Toast.makeText(getApplicationContext(), "Ошибка", Toast.LENGTH_SHORT).show();
+                }
 
                 break;
 
@@ -141,7 +150,8 @@ public class Income extends AppCompatActivity implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             String label = data.getStringExtra(Dialog_incomes.TEMP2);
-            dbHelper.insertLabel(label);
+            dbHelper.insertLabel2(label);
         }
+        LoadSpinnerData();
     }
 }

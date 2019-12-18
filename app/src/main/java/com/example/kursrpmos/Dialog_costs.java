@@ -13,7 +13,7 @@ public class Dialog_costs extends AppCompatActivity {
 
     Button btnCancelCost, btnAddNewCost;
     EditText etAddCostDialog;
-    DBHelper dbHelper;
+
     public final static String TEMP = "com.example.kursrpmos.Dialog_costs.TEMP2";
 
     @Override
@@ -25,8 +25,6 @@ public class Dialog_costs extends AppCompatActivity {
         btnCancelCost = findViewById(R.id.btnCancelCost);
 
         etAddCostDialog = findViewById(R.id.etAddCostDialog);
-
-        dbHelper = new DBHelper(this);
     }
 
     public void OnCancelCostClick(View view) {
@@ -40,7 +38,6 @@ public class Dialog_costs extends AppCompatActivity {
 
             setResult(RESULT_OK, answerIntent);
             answerIntent.putExtra(TEMP, label);
-            //dbHelper.LabelsOfCosts();
             finish();
 
         } else {

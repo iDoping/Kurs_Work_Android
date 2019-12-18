@@ -9,53 +9,46 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Statistics extends AppCompatActivity {
+public class Statistics_income extends AppCompatActivity {
 
-    TextView tvStartDate, tvEndDate, tvStartDateE, tvEndDateE;
-    Calendar dateAndTime = Calendar.getInstance();
-    BarChart barChart;
+    TextView tvStartDateIncome, tvEndDateIncome, tvStartDateEIncome, tvEndDateEIncome;
+    Calendar dateAndTimeIncome = Calendar.getInstance();
+    BarChart barChartIncome;
     DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistics);
+        setContentView(R.layout.activity_statistics_income);
 
-        tvStartDate = findViewById(R.id.tvStartDate);
-        tvEndDate = findViewById(R.id.tvEndDate);
+        tvStartDateIncome = findViewById(R.id.tvStartDateIncome);
+        tvEndDateIncome = findViewById(R.id.tvEndDateIncome);
 
-        tvStartDateE = findViewById(R.id.tvStartDateE);
-        tvEndDateE = findViewById(R.id.tvEndDateE);
+        tvStartDateEIncome = findViewById(R.id.tvStartDateEIncome);
+        tvEndDateEIncome = findViewById(R.id.tvEndDateEIncome);
 
-        tvStartDateE.setVisibility(View.INVISIBLE);
-        tvEndDateE.setVisibility(View.INVISIBLE);
+        tvStartDateEIncome.setVisibility(View.INVISIBLE);
+        tvEndDateEIncome.setVisibility(View.INVISIBLE);
 
-        barChart = findViewById(R.id.barchart);
+        barChartIncome = findViewById(R.id.barchart_income);
 
         dbHelper = new DBHelper(this);
-
-        //barChart.invalidate();
-
     }
 
-    public void onSetStartDateCLick(View view) {
-        new DatePickerDialog(Statistics.this, d, dateAndTime.get(Calendar.YEAR), dateAndTime.get(Calendar.MONTH), dateAndTime.get(Calendar.DAY_OF_MONTH)).show();
+    public void onSetStartIncomeCLick(View view) {
+
+        new DatePickerDialog(Statistics_income.this, d, dateAndTimeIncome.get(Calendar.YEAR), dateAndTimeIncome.get(Calendar.MONTH), dateAndTimeIncome.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
@@ -66,18 +59,17 @@ public class Statistics extends AppCompatActivity {
             if (dayOfMonth < 10) {
                 s = "0" + dayOfMonth;
                 String date2 = year + "/" + (monthOfYear + 1) + "/" + s;
-                tvStartDateE.setText(date2);
+                tvStartDateEIncome.setText(date2);
             } else {
                 String date2 = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
-                tvStartDateE.setText(date2);
+                tvStartDateEIncome.setText(date2);
             }
-            tvStartDate.setText(date);
-
+            tvStartDateIncome.setText(date);
         }
     };
 
-    public void onEndStartDateCLick(View view) {
-        new DatePickerDialog(Statistics.this, d2, dateAndTime.get(Calendar.YEAR), dateAndTime.get(Calendar.MONTH), dateAndTime.get(Calendar.DAY_OF_MONTH)).show();
+    public void onSetEndDateIncome(View view) {
+        new DatePickerDialog(Statistics_income.this, d2, dateAndTimeIncome.get(Calendar.YEAR), dateAndTimeIncome.get(Calendar.MONTH), dateAndTimeIncome.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     DatePickerDialog.OnDateSetListener d2 = new DatePickerDialog.OnDateSetListener() {
@@ -88,42 +80,41 @@ public class Statistics extends AppCompatActivity {
             if (dayOfMonth < 10) {
                 s = "0" + dayOfMonth;
                 String date2 = year + "/" + (monthOfYear + 1) + "/" + s;
-                tvEndDateE.setText(date2);
+                tvEndDateEIncome.setText(date2);
             } else {
                 String date2 = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
-                tvEndDateE.setText(date2);
+                tvEndDateEIncome.setText(date2);
             }
-            tvEndDate.setText(date);
+            tvEndDateIncome.setText(date);
         }
     };
 
-    public void onMakeStatClick(View view) {
-
+    public void onMakeStatIncomeClick(View view) {
         AddDataToGraph();
     }
 
     public void AddDataToGraph() {
-        String stDate = tvStartDateE.getText().toString();
-        String endDate = tvEndDateE.getText().toString();
+        String stDate = tvStartDateEIncome.getText().toString();
+        String endDate = tvEndDateEIncome.getText().toString();
 
-        ArrayList<BarEntry> barEntries = dbHelper.getBarEntriesCosts(stDate, endDate);
+        ArrayList<BarEntry> barEntries = dbHelper.getBarEntriesIncomes(stDate, endDate);
         BarDataSet barDataSet = new BarDataSet(barEntries, "Расходы за указанный период");
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        final List<String> lables = dbHelper.test();
+        final List<String> lables = dbHelper.test2();
 
         BarData barData = new BarData(barDataSet);
         barData.setBarWidth(0.5f);
-        barChart.animateY(2000);
+        barChartIncome.animateY(2000);
 
-        barChart.setData(barData);
-        XAxis xAxis = barChart.getXAxis();
+        barChartIncome.setData(barData);
+        XAxis xAxis = barChartIncome.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(lables));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(false);
-        barChart.getDescription().setEnabled(false);
+        barChartIncome.getDescription().setEnabled(false);
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(lables.size());
-        barChart.invalidate();
+        barChartIncome.invalidate();
     }
 }

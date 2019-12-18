@@ -14,12 +14,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
 
-    @Override
-    public void onOpen(SQLiteDatabase db) {
-        super.onOpen(db);
-        db.execSQL("PRAGMA foreign_keys=ON;");
-    }
-
     public static final String DATABASE_NAME = "mydatabase.db";
 
     public static final String TABLE_COSTS = "costs";
@@ -34,7 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COL_NAME_COST = "NAME_OF_COST";
 
     public static final String TABLE_INCOMES = "incomes";
-    public static final String COL_INC_ID = "ID";
+    public static final String COL_INC_ID = "_id";
     public static final String COL_INC_SUM = "INC_SUM";
     public static final String COL_INC_DATE = "INC_DATE";
     public static final String COL_INC_CAT = "INC_CATEGORY";
@@ -49,11 +43,17 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys=ON;");
+    }
+
+    @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_COSTS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, COST_DATE TEXT, COST_CATEGORY INTEGER, COST_SUM REAL,CONSTRAINT COST_CATEGORY FOREIGN KEY(COST_CATEGORY) REFERENCES typecosts(_id) ON DELETE CASCADE)");
         db.execSQL("CREATE TABLE " + TABLE_TYPECOSTS + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_COST TEXT)");
-        db.execSQL("CREATE TABLE " + TABLE_INCOMES + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, INC_DATE TEXT, INC_CATEGORY INTEGER, INC_SUM REAL, CONSTRAINT INC_CATEGORY FOREIGN KEY(INC_CATEGORY) REFERENCES typeincomes(ID_INCOME) ON DELETE CASCADE)");
-        db.execSQL("CREATE TABLE " + TABLE_TYPEINCOMES + " (ID_INCOME INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_INC TEXT)");
+        db.execSQL("CREATE TABLE " + TABLE_INCOMES + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, INC_DATE TEXT, INC_CATEGORY INTEGER, INC_SUM REAL, CONSTRAINT INC_CATEGORY FOREIGN KEY(INC_CATEGORY) REFERENCES typeincomes(_id) ON DELETE CASCADE)");
+        db.execSQL("CREATE TABLE " + TABLE_TYPEINCOMES + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_INC TEXT)");
     }
 
     @Override
@@ -68,13 +68,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public void insertLabel(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO typecosts(NAME_OF_COST) VALUES ('" + label + "')");
-        db.close(); // Closing database connection
+        db.close();
     }
 
     public void insertLabel2(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO typeincomes(NAME_OF_INC) VALUES ('" + label + "')");
-        db.close(); // Closing database connection
+        db.close();
     }
 
     public void InsertCost(String label1, String label2, String label3) {
@@ -85,39 +85,28 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void InsertIncome(String label1, String label2, String label3) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("INSERT INTO incomes(INC_SUM, INC_DATE, INC_CATEGORY) VALUES (" + label1 + ",'" + label2 + "',(SELECT ID_INCOME FROM typeincomes WHERE NAME_OF_INC = '" + label3 + "'))");
+        db.execSQL("INSERT INTO incomes(INC_SUM, INC_DATE, INC_CATEGORY) VALUES (" + label1 + ",'" + label2 + "',(SELECT _id FROM typeincomes WHERE NAME_OF_INC = '" + label3 + "'))");
         db.close();
     }
 
-    //public void DeleteCost(String label) {
-    //    SQLiteDatabase db = this.getWritableDatabase();
-    //    db.execSQL("DELETE FROM typecosts where NAME_OF_COST = '" + label + "'");
-    //    //db.close();
-    //}
-
     public void DeleteCost(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_TYPECOSTS, COL_NAME_COST + " = ?", new String[]{String.valueOf(label)});
+        db.execSQL("DELETE FROM typecosts where NAME_OF_COST = '" + label + "'");
         db.close();
     }
 
     public List<String> getAllLabels() {
         List<String> labels = new ArrayList<String>();
-
-        // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_TYPECOSTS;
-
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 labels.add(cursor.getString(1));
             } while (cursor.moveToNext());
         }
 
-        // closing connection
         cursor.close();
         db.close();
 
@@ -126,14 +115,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<String> getAllLabels2() {
         List<String> labels = new ArrayList<String>();
-
-        // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_TYPEINCOMES;
-
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
 
@@ -141,66 +126,47 @@ public class DBHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        // closing connection
         cursor.close();
         db.close();
-
         return labels;
     }
 
-    public ArrayList<BarEntry> getBarEntries() {
-        String cost_sum_column = "COST_SUM";
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = new String[]{"SUM(COST_SUM) AS " + cost_sum_column, "COST_CATEGORY"};
-        Cursor csr = db.query("costs", columns, null, null, "COST_CATEGORY", null, null);
-        ArrayList<BarEntry> rv = new ArrayList<>();
-
-        while (csr.moveToNext()) {
-            rv.add(new BarEntry(
-                    csr.getInt(csr.getColumnIndex("COST_CATEGORY")),
-                    csr.getFloat(csr.getColumnIndex(cost_sum_column))
-            ));
-        }
-        csr.close();
-        return rv;
-    }
-
-    public ArrayList<BarEntry> getBarEntries3(String label1, String label2) {
+    public ArrayList<BarEntry> getBarEntriesCosts(String label1, String label2) {
         String cost_sum_column = "COST_SUM";
         String cost_sum_column2 = "COST_CATEGORY";
         String date = "COSTS.COST_DATE >= '" + label1 + "' AND COSTS.COST_DATE <= '" + label2 + "'";
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = new String[]{"SUM(COST_SUM) AS " + cost_sum_column, "COST_CATEGORY AS " + cost_sum_column2};
         Cursor csr = db.query("costs JOIN TYPECOSTS ON COSTS.COST_CATEGORY = TYPECOSTS._id", columns, date, null, "COST_CATEGORY", null, null);
-
+        int barEntry = 1;
         ArrayList<BarEntry> rv = new ArrayList<>();
         while (csr.moveToNext()) {
             rv.add(new BarEntry(
-                    csr.getInt(csr.getColumnIndex("COST_CATEGORY")),
+                    barEntry,
                     csr.getFloat(csr.getColumnIndex(cost_sum_column))
             ));
+            barEntry++;
         }
-
         csr.close();
         return rv;
     }
 
-    public ArrayList<BarEntry> getBarEntries2(String label1, String label2) {
-        String cost_sum_column = "COST_SUM";
-        String cost_sum_column2 = "NAME_OF_COST";
-        String date = "COSTS.COST_DATE >=  " + '"' + label1 + '"' + " AND COSTS.COST_DATE <=" + '"' + label2 + '"' + "";
+    public ArrayList<BarEntry> getBarEntriesIncomes(String label1, String label2) {
+        String income_sum_column = "INC_SUM";
+        String income_sum_column2 = "INC_CATEGORY";
+        String date = "INCOMES.INC_DATE >= '" + label1 + "' AND INCOMES.INC_DATE <= '" + label2 + "'";
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = new String[]{"SUM(COST_SUM) AS " + cost_sum_column, "NAME_OF_COST AS " + cost_sum_column2};
-        Cursor csr = db.query("costs JOIN TYPECOSTS ON COSTS.COST_CATEGORY = TYPECOSTS._id", columns, date, null, "NAME_OF_COST", null, null);
-
+        String[] columns = new String[]{"SUM(INC_SUM) AS " + income_sum_column, "INC_CATEGORY AS " + income_sum_column2};
+        Cursor csr = db.query("incomes JOIN typeincomes ON incomes.INC_CATEGORY = TYPEINCOMES._id", columns, date, null, "INC_CATEGORY", null, null);
+        int barEntry = 1;
         ArrayList<BarEntry> rv = new ArrayList<>();
         while (csr.moveToNext()) {
             rv.add(new BarEntry(
-                    csr.getInt(csr.getColumnIndex("NAME_OF_COST")),
-                    csr.getFloat(csr.getColumnIndex(cost_sum_column))
+                    barEntry,
+                    csr.getFloat(csr.getColumnIndex(income_sum_column))
             ));
+            barEntry++;
         }
-
         csr.close();
         return rv;
     }
@@ -209,22 +175,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
         List<String> labels = new ArrayList<String>();
         labels.add(" ");
-
-        // Select All Query
-
         String selectQuery = "SELECT SUM(COST_SUM),NAME_OF_COST FROM COSTS JOIN TYPECOSTS ON COSTS.COST_CATEGORY = TYPECOSTS._id group by COST_CATEGORY ";
-
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 labels.add(cursor.getString(1));
             } while (cursor.moveToNext());
         }
 
-        // closing connection
         cursor.close();
         db.close();
 
@@ -239,6 +199,33 @@ public class DBHelper extends SQLiteOpenHelper {
         // Select All Query
 
         String selectQuery = "SELECT NAME_OF_COST FROM COSTS JOIN TYPECOSTS ON COSTS.COST_CATEGORY = TYPECOSTS._id group by COST_CATEGORY ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        return labels;
+    }
+
+
+    public List<String> test2() {
+
+        List<String> labels = new ArrayList<String>();
+        labels.add(" ");
+
+        // Select All Query
+
+        String selectQuery = "SELECT NAME_OF_INC FROM INCOMES JOIN TYPEINCOMES ON INCOMES.INC_CATEGORY = TYPEINCOMES._id group by INC_CATEGORY ";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

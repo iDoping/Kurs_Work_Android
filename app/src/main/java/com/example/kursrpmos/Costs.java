@@ -58,7 +58,6 @@ public class Costs extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
 
         String sum = etSum.getText().toString();
-        //String costs_date = etDate.getText().toString();
         String cost_cat = spinner.getSelectedItem().toString();
         String DateForSQLite = tvCostDateForSQL.getText().toString();
         SQLiteDatabase database = dbHelper.getWritableDatabase();
