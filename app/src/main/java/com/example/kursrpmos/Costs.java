@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,10 +19,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Costs extends AppCompatActivity implements View.OnClickListener {
+public class Costs extends AppCompatActivity {
 
     TextView tvCostDateForSQL;
-    Button btnAdd, btnClearCost;
+    Button btnAddCosts;
     DBHelper dbHelper;
     EditText etSum, etDate;
     Spinner spinner;
@@ -34,11 +33,7 @@ public class Costs extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_costs);
 
-        btnAdd = findViewById(R.id.btnAddCosts);
-        btnAdd.setOnClickListener(this);
-
-        btnClearCost = findViewById(R.id.btnReadCosts);
-        btnClearCost.setOnClickListener(this);
+        btnAddCosts = findViewById(R.id.btnAddCosts);
 
         etSum = findViewById(R.id.etSumm);
         etDate = findViewById(R.id.etDate);
@@ -54,34 +49,19 @@ public class Costs extends AppCompatActivity implements View.OnClickListener {
         LoadSpinnerData();
     }
 
-    @Override
-    public void onClick(View v) {
+    public void onAddCostsClick(View view) {
 
         String sum = etSum.getText().toString();
         String cost_cat = spinner.getSelectedItem().toString();
         String DateForSQLite = tvCostDateForSQL.getText().toString();
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-        switch (v.getId()) {
-
-            case R.id.btnAddCosts:
-
-                try {
-                    dbHelper.InsertCost(sum, DateForSQLite, cost_cat);
-                    etSum.setText("");
-                    Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
-                } catch (ArithmeticException e) {
-                    Toast.makeText(getApplicationContext(), "Ошибка", Toast.LENGTH_SHORT).show();
-                }
-
-                break;
-
-            case R.id.btnReadCosts:
-                database.delete(DBHelper.TABLE_COSTS, null, null);
-                database.delete(DBHelper.TABLE_TYPECOSTS, null, null);
-                LoadSpinnerData();
+        if (sum.equals("")) {
+            Toast.makeText(getApplicationContext(), "Заполните поле Сумма", Toast.LENGTH_SHORT).show();
+        } else {
+            dbHelper.InsertCost(sum, DateForSQLite, cost_cat);
+            etSum.setText("");
+            Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
         }
-        dbHelper.close();
     }
 
     public void onSelectDateClick(View view) {

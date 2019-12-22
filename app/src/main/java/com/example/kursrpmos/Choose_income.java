@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -53,11 +54,16 @@ public class Choose_income extends AppCompatActivity implements CustomDialogFrag
     }
 
     public void OnYesClickedIncomes() {
-        dbHelper.DeleteIncome(SelectedIncome.getText().toString());
-        listItemIncomes.clear();
-        SelectIncomesToList();
-        SelectedIncome.setText("");
-        dbHelper.LabelsOfIncomes();
+        if (listItemIncomes.size() == 1)
+        {
+            Toast.makeText(getApplicationContext(), "Должна остаться хотя-бы одна категория. Сначала создайте новую категорию", Toast.LENGTH_SHORT).show();
+        } else {
+            dbHelper.DeleteIncome(SelectedIncome.getText().toString());
+            listItemIncomes.clear();
+            SelectIncomesToList();
+            SelectedIncome.setText("");
+            dbHelper.LabelsOfIncomes();
+        }
     }
 
     public void SelectIncomesToList() {

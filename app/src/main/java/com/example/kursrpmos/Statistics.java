@@ -109,7 +109,7 @@ public class Statistics extends AppCompatActivity {
         ArrayList<BarEntry> barEntries = dbHelper.getBarEntriesCosts(stDate, endDate);
         BarDataSet barDataSet = new BarDataSet(barEntries, "Расходы за указанный период");
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        final List<String> lables = dbHelper.test();
+        final List<String> labels = dbHelper.GetCostsBarLabel();
 
         BarData barData = new BarData(barDataSet);
         barData.setBarWidth(0.5f);
@@ -117,13 +117,13 @@ public class Statistics extends AppCompatActivity {
 
         barChart.setData(barData);
         XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(lables));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(false);
         barChart.getDescription().setEnabled(false);
         xAxis.setGranularity(1f);
-        xAxis.setLabelCount(lables.size());
+        xAxis.setLabelCount(labels.size());
         barChart.invalidate();
     }
 }

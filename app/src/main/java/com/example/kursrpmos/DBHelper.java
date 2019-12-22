@@ -217,7 +217,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return labels;
     }
 
-    public List<String> test() {
+    public List<String> GetCostsBarLabel() {
 
         List<String> labels = new ArrayList<String>();
         labels.add(" ");
@@ -244,7 +244,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public List<String> test2() {
+    public List<String> GetIncomesBarLabel() {
 
         List<String> labels = new ArrayList<String>();
         labels.add(" ");

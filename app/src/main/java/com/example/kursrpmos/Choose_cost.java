@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,11 +54,17 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
     }
 
     public void OnYesClicked() {
-        dbHelper.DeleteCost(SelectedCost.getText().toString());
-        listItem.clear();
-        SelectCostsToList();
-        SelectedCost.setText("");
-        dbHelper.LabelsOfCosts();
+        if (listItem.size() == 1)
+        {
+            Toast.makeText(getApplicationContext(), "Должна остаться хотя-бы одна категория. Сначала создайте новую категорию", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            dbHelper.DeleteCost(SelectedCost.getText().toString());
+            listItem.clear();
+            SelectCostsToList();
+            SelectedCost.setText("");
+            dbHelper.LabelsOfCosts();
+        }
     }
 
     public void SelectCostsToList() {

@@ -100,7 +100,7 @@ public class Statistics_income extends AppCompatActivity {
         ArrayList<BarEntry> barEntries = dbHelper.getBarEntriesIncomes(stDate, endDate);
         BarDataSet barDataSet = new BarDataSet(barEntries, "Расходы за указанный период");
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        final List<String> lables = dbHelper.test2();
+        final List<String> labels = dbHelper.GetIncomesBarLabel();
 
         BarData barData = new BarData(barDataSet);
         barData.setBarWidth(0.5f);
@@ -108,13 +108,13 @@ public class Statistics_income extends AppCompatActivity {
 
         barChartIncome.setData(barData);
         XAxis xAxis = barChartIncome.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(lables));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(false);
         barChartIncome.getDescription().setEnabled(false);
         xAxis.setGranularity(1f);
-        xAxis.setLabelCount(lables.size());
+        xAxis.setLabelCount(labels.size());
         barChartIncome.invalidate();
     }
 }
