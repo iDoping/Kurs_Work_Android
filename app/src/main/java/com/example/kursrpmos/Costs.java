@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,7 +23,7 @@ import java.util.List;
 
 public class Costs extends AppCompatActivity {
 
-    TextView tvCostDateForSQL;
+    TextView tvCostDateForSQL, tvTest;
     Button btnAddCosts;
     DBHelper dbHelper;
     EditText etSum, etDate;
@@ -36,17 +38,40 @@ public class Costs extends AppCompatActivity {
         btnAddCosts = findViewById(R.id.btnAddCosts);
 
         etSum = findViewById(R.id.etSumm);
+        etSum.setInputType(InputType.TYPE_CLASS_NUMBER);
         etDate = findViewById(R.id.etDate);
 
         dbHelper = new DBHelper(this);
 
         spinner = findViewById(R.id.spinCostCat);
-
         tvCostDateForSQL = findViewById(R.id.tvtestdate);
-
+        tvTest = findViewById(R.id.tvTest);
         setInitialDateTime();
         setInitialDateTimeForSQLite();
         LoadSpinnerData();
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView adapter, View v, int i, long lng) {
+
+                String value = adapter.getItemAtPosition(i).toString();
+                String temp = dbHelper.getCostsPlans(value);
+                if (temp == null) {
+                    tvTest.setText("");
+                } else {
+                    if (Integer.valueOf(temp) < 0) {
+                        tvTest.setText("Лимит категории " + value + " превышен");
+                    } else {
+                        tvTest.setText("Лимит категории " + value + " составляет " + temp + " рублей");
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+        });
     }
 
     public void onAddCostsClick(View view) {
@@ -55,12 +80,33 @@ public class Costs extends AppCompatActivity {
         String cost_cat = spinner.getSelectedItem().toString();
         String DateForSQLite = tvCostDateForSQL.getText().toString();
 
-        if (sum.equals("")) {
-            Toast.makeText(getApplicationContext(), "Заполните поле Сумма", Toast.LENGTH_SHORT).show();
+        String lol = dbHelper.getCostsPlans(cost_cat);
+        if(lol == null)
+        {
+            if (sum.equals("")) {
+                Toast.makeText(getApplicationContext(), "Заполните поле Сумма", Toast.LENGTH_SHORT).show();
+            } else {
+                tvTest.setText("");
+                dbHelper.InsertCost(sum, DateForSQLite, cost_cat);
+                etSum.setText("");
+                Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            dbHelper.InsertCost(sum, DateForSQLite, cost_cat);
-            etSum.setText("");
-            Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
+
+            if (sum.equals("")) {
+                Toast.makeText(getApplicationContext(), "Заполните поле Сумма", Toast.LENGTH_SHORT).show();
+            } else {
+
+                int start_value = Integer.valueOf(dbHelper.getCostsPlans(cost_cat));
+                int end_value = Integer.valueOf(sum);
+                int result = start_value - end_value;
+                dbHelper.insertChanges(result, cost_cat);
+                dbHelper.InsertCost(sum, DateForSQLite, cost_cat);
+                etSum.setText("");
+                Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
+                String temp = dbHelper.getCostsPlans(cost_cat);
+                tvTest.setText("Лимит категории " + cost_cat + " составляет " + temp + " рублей");
+            }
         }
     }
 

@@ -71,7 +71,7 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
         Cursor cursor = dbHelper.SelectCostsToList();
 
         while (cursor.moveToNext()) {
-            listItem.add(cursor.getString(1));
+            listItem.add(cursor.getString(0));
         }
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItem);
         costCategoryList.setAdapter(adapter);

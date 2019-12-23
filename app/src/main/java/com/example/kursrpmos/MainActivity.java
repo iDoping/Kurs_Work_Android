@@ -43,4 +43,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, Choose_income.class);
         startActivity(intent);
     }
+
+    public void onPlanningClick(View view) {
+        Intent intent = new Intent(MainActivity.this, PlanningOfCosts.class);
+        startActivity(intent);
+    }
 }
