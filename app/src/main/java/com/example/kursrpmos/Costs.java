@@ -105,7 +105,11 @@ public class Costs extends AppCompatActivity {
                 etSum.setText("");
                 Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
                 String temp = dbHelper.getCostsPlans(cost_cat);
-                tvTest.setText("Лимит категории " + cost_cat + " составляет " + temp + " рублей");
+                if (Integer.valueOf(temp) < 0) {
+                    tvTest.setText("Лимит категории " + cost_cat + " превышен");
+                } else {
+                    tvTest.setText("Лимит категории " + cost_cat + " составляет " + temp + " рублей");
+                }
             }
         }
     }

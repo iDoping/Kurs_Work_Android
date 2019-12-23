@@ -10,10 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class PlanningOfCosts extends AppCompatActivity {
+public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFragmentPlans.DialogListenerPlans {
 
     ListView PlansList;
     DBHelper dbHelper;
@@ -31,7 +32,7 @@ public class PlanningOfCosts extends AppCompatActivity {
         dbHelper = new DBHelper(this);
         PlansListItem = new ArrayList<>();
         PlansList = findViewById(R.id.PlansList);
-        SelectCostsToList();
+        SelectPlansToList();
 
         PlansList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -39,7 +40,7 @@ public class PlanningOfCosts extends AppCompatActivity {
 
                 String text = PlansList.getItemAtPosition(position).toString();
                 String str [] = text.split(":");
-                SelectedPlan.setText(str[0]);
+                SelectedPlan.setText(str[0].trim());
             }
         });
     }
@@ -52,6 +53,18 @@ public class PlanningOfCosts extends AppCompatActivity {
     }
 
     public void onDeleteNewPlanClick(View view) {
+            CustomDialogFragmentPlans dialog = new CustomDialogFragmentPlans();
+            dialog.show(getSupportFragmentManager(), "plans");
+    }
+
+    public void OnYesClickedPlans() {
+
+            dbHelper.TESTPLANS(SelectedPlan.getText().toString());
+            PlansListItem.clear();
+            SelectPlansToList();
+            SelectedPlan.setText("");
+            //dbHelper.LabelsOfCosts();
+            Toast.makeText(getApplicationContext(), "Лимит удален", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -63,13 +76,13 @@ public class PlanningOfCosts extends AppCompatActivity {
             dbHelper.insertPlan(label1,label2);
         }
         PlansListItem.clear();
-        SelectCostsToList();
+        SelectPlansToList();
         SelectedPlan.setText("");
-        dbHelper.LabelsOfCosts();
+        //dbHelper.LabelsOfCosts();
     }
 
-    public void SelectCostsToList() {
-        Cursor cursor = dbHelper.SelectCostsToList2();
+    public void SelectPlansToList() {
+        Cursor cursor = dbHelper.SelectPlansToList();
 
         while (cursor.moveToNext()) {
             String temp = cursor.getString(1);

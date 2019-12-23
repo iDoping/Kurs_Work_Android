@@ -282,7 +282,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-    public Cursor SelectCostsToList2() {
+    public Cursor SelectPlansToList() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT NAME_OF_COST,START_LIMIT FROM " + TABLE_TYPECOSTS;
         return db.rawQuery(query, null);
@@ -319,25 +319,18 @@ public class DBHelper extends SQLiteOpenHelper {
         return labels;
     }
 
-    public String getCostsPlansTemp(String label) {
-        String labels = "";
-        String selectQuery = "SELECT  START_LIMIT FROM " + TABLE_TYPECOSTS + " WHERE NAME_OF_COST = '" + label + "'";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-
-                labels = cursor.getString(0);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return labels;
-    }
-
     public void insertChanges(int label1, String label2) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = " + label1 + " WHERE NAME_OF_COST = '" + label2 + "'");
+        db.close();
+    }
+
+    public void TESTPLANS(String label) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        //db.execSQL("INSERT INTO typecosts(START_LIMIT,PERIODIC_LIMIT) VALUES ('" + label1 + "','" + label1 + "') WHERE NAME_OF_COST = " + label2 + "");
+        db.execSQL("UPDATE typecosts SET START_LIMIT = null WHERE NAME_OF_COST = '" + label + "'");
+        db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = null WHERE NAME_OF_COST = '" + label + "'");
+        //UPDATE typecosts SET START_LIMIT = 500 WHERE NAME_OF_COST = "Еда"
         db.close();
     }
 
