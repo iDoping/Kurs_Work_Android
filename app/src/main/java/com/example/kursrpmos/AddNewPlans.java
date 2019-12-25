@@ -24,6 +24,11 @@ public class AddNewPlans extends AppCompatActivity {
     public final static String TEMP3 = "com.example.kursrpmos.AddNewPlans.TEMP3";
     public final static String TEMP4 = "com.example.kursrpmos.AddNewPlans.TEMP4";
 
+    /**
+     * Задаёт начальную установку параметров при инициализации активности
+     *
+     * @param savedInstanceState Сохраненное состояние
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,11 @@ public class AddNewPlans extends AppCompatActivity {
         loadSpinnerData();
     }
 
+    /**
+     * Устанавливает лимит на выбраную категорию
+     *
+     * @param view Параметр, отвечающий за отображение
+     */
     public void onAddNewPlanClick(View view) {
 
         Intent answerIntent = new Intent();
@@ -46,7 +56,7 @@ public class AddNewPlans extends AppCompatActivity {
 
             setResult(RESULT_OK, answerIntent);
             answerIntent.putExtra(TEMP3, label1);
-            answerIntent.putExtra(TEMP4,label2);
+            answerIntent.putExtra(TEMP4, label2);
             finish();
 
         } else {
@@ -55,6 +65,9 @@ public class AddNewPlans extends AppCompatActivity {
         }
     }
 
+    /**
+     * Загружает все имена категорий доходов в объект spinner
+     */
     public void loadSpinnerData() {
         List<String> lables = dbHelper.getAllCosts();
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);

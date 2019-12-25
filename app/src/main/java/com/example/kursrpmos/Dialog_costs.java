@@ -16,6 +16,11 @@ public class Dialog_costs extends AppCompatActivity {
 
     public final static String TEMP = "com.example.kursrpmos.Dialog_costs.TEMP";
 
+    /**
+     * Задаёт начальную установку параметров при инициализации активности
+     *
+     * @param savedInstanceState Сохраненное состояние
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +32,20 @@ public class Dialog_costs extends AppCompatActivity {
         etAddCostDialog = findViewById(R.id.etAddCostDialog);
     }
 
+    /**
+     * Завершение действий данной Activity
+     *
+     * @param view Параметр, отвечающий за отображение
+     */
     public void OnCancelCostClick(View view) {
         finish();
     }
 
+    /**
+     * Передает введенный пользователем текст на предыдущую Activity
+     *
+     * @param view Параметр, отвечающий за отображение
+     */
     public void onAddNewCostClick(View view) {
         Intent answerIntent = new Intent();
         String label = etAddCostDialog.getText().toString();

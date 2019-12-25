@@ -22,6 +22,11 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
     ArrayAdapter adapter;
     TextView selectedCost;
 
+    /**
+     * Задаёт начальную установку параметров при инициализации активности
+     *
+     * @param savedInstanceState Сохраненное состояние
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,13 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
         selectCostsToList();
 
         costCategoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * Устанавливает выбранный элемент списка в textView
+             * @param parent Определение интерфейса для обратного вызова, который будет вызываться при нажатии на элемент в этом AdapterView
+             * @param view Нажатый пункт
+             * @param position Порядковый номер пункта в списке
+             * @param id Идентификатор элемента
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String text = costCategoryList.getItemAtPosition(position).toString();
@@ -43,22 +55,33 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
 
     static final private int CHOOSE_PREP = 0;
 
+    /**
+     * Перход во вкладку добавления новой категории расхода
+     *
+     * @param view параметр отвечающий за отображение
+     */
     public void onAddNewCostClick(View view) {
         Intent intent = new Intent(Choose_cost.this, Dialog_costs.class);
         startActivityForResult(intent, CHOOSE_PREP);
     }
 
+    /**
+     * Вызов диалогового окна для удаления выбранной категории расхода
+     *
+     * @param view параметр отвечающий за отображение
+     */
     public void onDeleteNewCostClick(View view) {
         CustomDialogFragment dialog = new CustomDialogFragment();
         dialog.show(getSupportFragmentManager(), "custom");
     }
 
+    /**
+     * Удаляет выбранную категорию расхода
+     */
     public void onYesClicked() {
-        if (listItem.size() == 1)
-        {
+        if (listItem.size() == 1) {
             Toast.makeText(getApplicationContext(), "Должна остаться хотя-бы одна категория. Сначала создайте новую категорию", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             dbHelper.deleteCost(selectedCost.getText().toString());
             listItem.clear();
             selectCostsToList();
@@ -66,6 +89,9 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
         }
     }
 
+    /**
+     * Добавление категорий расходов в listView
+     */
     public void selectCostsToList() {
         Cursor cursor = dbHelper.selectCostsToList();
 
@@ -76,6 +102,13 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
         costCategoryList.setAdapter(adapter);
     }
 
+    /**
+     * Получение данных от вызываемой Activity
+     *
+     * @param requestCode ID  Используется, чтобы отличать друг от друга пришедшие результаты
+     * @param resultCode  Позволяет определить успешно прошел вызов или нет
+     * @param data        Содержит данные с предыдущего Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

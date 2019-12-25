@@ -27,6 +27,11 @@ public class Statistics_income extends AppCompatActivity {
     BarChart barChartIncome;
     DBHelper dbHelper;
 
+    /**
+     * Задаёт начальную установку параметров при инициализации активности
+     *
+     * @param savedInstanceState Сохраненное состояние
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,11 @@ public class Statistics_income extends AppCompatActivity {
         dbHelper = new DBHelper(this);
     }
 
+    /**
+     * Установка выбранной даты
+     *
+     * @param view Параметр отвечающий за отображение
+     */
     public void onSetStartIncomeCLick(View view) {
 
         new DatePickerDialog(Statistics_income.this, d, dateAndTimeIncome.get(Calendar.YEAR), dateAndTimeIncome.get(Calendar.MONTH), dateAndTimeIncome.get(Calendar.DAY_OF_MONTH)).show();
@@ -53,6 +63,13 @@ public class Statistics_income extends AppCompatActivity {
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
 
+        /**
+         * Получение параметров даты
+         * @param view Отображение календаря
+         * @param year Год
+         * @param monthOfYear Месяц года
+         * @param dayOfMonth День месяца
+         */
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
             String s = "";
@@ -68,12 +85,24 @@ public class Statistics_income extends AppCompatActivity {
         }
     };
 
+    /**
+     * Установка выбранной даты
+     *
+     * @param view Параметр отвечающий за отображение
+     */
     public void onSetEndDateIncome(View view) {
         new DatePickerDialog(Statistics_income.this, d2, dateAndTimeIncome.get(Calendar.YEAR), dateAndTimeIncome.get(Calendar.MONTH), dateAndTimeIncome.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     DatePickerDialog.OnDateSetListener d2 = new DatePickerDialog.OnDateSetListener() {
 
+        /**
+         * Получение параметров даты
+         * @param view Отображение календаря
+         * @param year Год
+         * @param monthOfYear Месяц года
+         * @param dayOfMonth День месяца
+         */
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
             String s = "";
@@ -89,11 +118,19 @@ public class Statistics_income extends AppCompatActivity {
         }
     };
 
+    /**
+     * Построение графика по доходам
+     *
+     * @param view Параметр отвечающий за отображение
+     */
     public void onMakeStatIncomeClick(View view) {
-        AddDataToGraph();
+        addDataToGraph();
     }
 
-    public void AddDataToGraph() {
+    /**
+     * Добавление данных в столбчатую диаграмму
+     */
+    public void addDataToGraph() {
         String stDate = tvStartDateEIncome.getText().toString();
         String endDate = tvEndDateEIncome.getText().toString();
 

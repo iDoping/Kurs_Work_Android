@@ -30,6 +30,11 @@ public class Costs extends AppCompatActivity {
     Spinner spinner;
     Calendar dateAndTime = Calendar.getInstance();
 
+    /**
+     * Задаёт начальную установку параметров при инициализации активности
+     *
+     * @param savedInstanceState Сохраненное состояние
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,13 @@ public class Costs extends AppCompatActivity {
         loadSpinnerData();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             *
+             * @param adapter Определение интерфейса для обратного вызова, который будет вызываться при нажатии на элемент в этом AdapterView
+             * @param v Нажатый пункт
+             * @param i Порядковый номер пункта в списке
+             * @param lng Идентификатор элемента
+             */
             @Override
             public void onItemSelected(AdapterView adapter, View v, int i, long lng) {
 
@@ -68,6 +80,10 @@ public class Costs extends AppCompatActivity {
                 }
             }
 
+            /**
+             * Ничего не выбрано
+             * @param parentView Определение интерфейса для обратного вызова, который будет вызываться при нажатии на элемент в этом AdapterView
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
 
@@ -75,6 +91,11 @@ public class Costs extends AppCompatActivity {
         });
     }
 
+    /**
+     * Добавление нового расхода
+     *
+     * @param view Параметр отвечающий за отображение
+     */
     public void onAddCostsClick(View view) {
 
         String sum = etSum.getText().toString();
@@ -82,8 +103,7 @@ public class Costs extends AppCompatActivity {
         String DateForSQLite = tvCostDateForSQL.getText().toString();
 
         String lol = dbHelper.getCostsPlans(cost_cat);
-        if(lol == null)
-        {
+        if (lol == null) {
             if (sum.equals("")) {
                 Toast.makeText(getApplicationContext(), "Заполните поле Сумма", Toast.LENGTH_SHORT).show();
             } else {
@@ -115,10 +135,18 @@ public class Costs extends AppCompatActivity {
         }
     }
 
+    /**
+     * Установка выбранной даты
+     *
+     * @param view Параметр отвечающий за отображение
+     */
     public void onSelectDateClick(View view) {
         new DatePickerDialog(Costs.this, d, dateAndTime.get(Calendar.YEAR), dateAndTime.get(Calendar.MONTH), dateAndTime.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    /**
+     * Установка даты, которую видит пользователь
+     */
     private void setInitialDateTime() {
         SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
         Date todayDate = new Date();
@@ -126,6 +154,9 @@ public class Costs extends AppCompatActivity {
         etDate.setText(thisDate);
     }
 
+    /**
+     * Установка даты, которая записывается в базу данных
+     */
     private void setInitialDateTimeForSQLite() {
         SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
         Date todayDate = new Date();
@@ -134,7 +165,13 @@ public class Costs extends AppCompatActivity {
     }
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
-
+        /**
+         * Получение параметров даты
+         * @param view Отображение календаря
+         * @param year Год
+         * @param monthOfYear Месяц года
+         * @param dayOfMonth День месяца
+         */
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
             String s = "";
@@ -150,30 +187,35 @@ public class Costs extends AppCompatActivity {
         }
     };
 
+    /**
+     * Получение всех категорий расходов
+     */
     public void loadSpinnerData() {
-        // database handler
-
-        // Spinner Drop down elements
         List<String> lables = dbHelper.getAllCosts();
-
-        // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
-
-        // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
-        //dbHelper.close();
     }
 
     static final private int CHOOSE_PREP = 0;
 
+    /**
+     * Вызов диалога для добавления категории расхода
+     *
+     * @param view Параметр отвечающий за отображение
+     */
     public void onDialogClick(View view) {
         Intent intent = new Intent(Costs.this, Dialog_costs.class);
         startActivityForResult(intent, CHOOSE_PREP);
     }
 
+    /**
+     * Получение данных от вызаемой Activity
+     *
+     * @param requestCode Используется, чтобы отличать друг от друга пришедшие результаты
+     * @param resultCode  Позволяет определить успешно прошел вызов или нет
+     * @param data        Содержит данные с предыдущего Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

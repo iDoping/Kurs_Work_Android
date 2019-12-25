@@ -29,6 +29,11 @@ public class Income extends AppCompatActivity {
     Spinner spinIncCat;
     Calendar dateAndTime = Calendar.getInstance();
 
+    /**
+     * Задаёт начальную установку параметров при инициализации активности
+     *
+     * @param savedInstanceState Сохраненное состояние
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,11 @@ public class Income extends AppCompatActivity {
         loadSpinnerData();
     }
 
+    /**
+     * Добавление нового дохода
+     *
+     * @param view Параметр отвечающий за отображение
+     */
     public void onAddIncomesClick(View view) {
 
         String income_sum = etSumIncome.getText().toString();
@@ -67,10 +77,18 @@ public class Income extends AppCompatActivity {
         }
     }
 
+    /**
+     * Установка выбранной даты
+     *
+     * @param view Параметр отвечающий за отображение
+     */
     public void onSelectIncomeDateClick(View view) {
         new DatePickerDialog(Income.this, d, dateAndTime.get(Calendar.YEAR), dateAndTime.get(Calendar.MONTH), dateAndTime.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    /**
+     * Установка даты, которую видит пользователь
+     */
     private void setInitialDateTime() {
         SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
         Date todayDate = new Date();
@@ -78,6 +96,9 @@ public class Income extends AppCompatActivity {
         etDateIncome.setText(thisDate);
     }
 
+    /**
+     * Установка даты, которая записывается в базу данных
+     */
     private void setInitialDateTimeForSQLite() {
         SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
         Date todayDate = new Date();
@@ -87,6 +108,13 @@ public class Income extends AppCompatActivity {
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
 
+        /**
+         * Получение параметров даты
+         * @param view Отображение календаря
+         * @param year Год
+         * @param monthOfYear Месяц года
+         * @param dayOfMonth День месяца
+         */
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
             String s = "";
@@ -102,6 +130,9 @@ public class Income extends AppCompatActivity {
         }
     };
 
+    /**
+     * Получение всех категорий доходов
+     */
     public void loadSpinnerData() {
         List<String> lables = dbHelper.getAllIncomes();
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
@@ -112,11 +143,21 @@ public class Income extends AppCompatActivity {
 
     static final private int CHOOSE_PREP = 0;
 
+    /**
+     * Вызов диалога для добавления категории расхода
+     *
+     * @param view Параметр отвечающий за отображение
+     */
     public void onIncomeDialogClick(View view) {
         Intent intent = new Intent(Income.this, Dialog_incomes.class);
         startActivityForResult(intent, CHOOSE_PREP);
     }
 
+    /**
+     * @param requestCode Используется, чтобы отличать друг от друга пришедшие результаты
+     * @param resultCode  Позволяет определить успешно прошел вызов или нет
+     * @param data        Содержит данные с предыдущего Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

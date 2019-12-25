@@ -16,6 +16,11 @@ public class Dialog_incomes extends AppCompatActivity {
 
     public final static String TEMP2 = "com.example.kursrpmos.Dialog_incomes.TEMP2";
 
+    /**
+     * Задаёт начальную установку параметров при инициализации активности
+     *
+     * @param savedInstanceState Сохраненное состояние
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +32,20 @@ public class Dialog_incomes extends AppCompatActivity {
         etAddIncomeDialog = findViewById(R.id.etAddIncomeDialog);
     }
 
+    /**
+     * Завершение действий данной Activity
+     *
+     * @param view Параметр, отвечающий за отображение
+     */
     public void OnCancelIncomeClick(View view) {
         finish();
     }
 
+    /**
+     * Передает введенный пользователем текст на предыдущую Activity
+     *
+     * @param view Параметр, отвечающий за отображение
+     */
     public void onAddNewIncomeClick(View view) {
         Intent answerIntent = new Intent();
         String label = etAddIncomeDialog.getText().toString();
