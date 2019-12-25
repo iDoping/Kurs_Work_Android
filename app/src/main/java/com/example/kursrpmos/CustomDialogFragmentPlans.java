@@ -16,9 +16,9 @@ public class CustomDialogFragmentPlans extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         return builder
-                .setTitle("Удаление категории")
+                .setTitle("Удаление лимита")
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage("При удалении категории удалятся все данные,связанные с ней. Продолжить?")
+                .setMessage("Лимит выбранной категории будет удален и установлен в значение 0, продолжить?")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -101,12 +101,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void DeletePlans(String label) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM typecosts where NAME_OF_INC = '" + label + "'");
-        db.close();
-    }
-
     public List<String> getAllLabels() {
         List<String> labels = new ArrayList<String>();
         String selectQuery = "SELECT  * FROM " + TABLE_TYPECOSTS;
@@ -296,10 +290,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void insertPlan(String label1, String label2) {
         SQLiteDatabase db = this.getWritableDatabase();
-        //db.execSQL("INSERT INTO typecosts(START_LIMIT,PERIODIC_LIMIT) VALUES ('" + label1 + "','" + label1 + "') WHERE NAME_OF_COST = " + label2 + "");
         db.execSQL("UPDATE typecosts SET START_LIMIT = " + label1 + " WHERE NAME_OF_COST = '" + label2 + "'");
         db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = " + label1 + " WHERE NAME_OF_COST = '" + label2 + "'");
-        //UPDATE typecosts SET START_LIMIT = 500 WHERE NAME_OF_COST = "Еда"
         db.close();
     }
 
@@ -325,13 +317,22 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void TESTPLANS(String label) {
+    public void DeletePlans(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
-        //db.execSQL("INSERT INTO typecosts(START_LIMIT,PERIODIC_LIMIT) VALUES ('" + label1 + "','" + label1 + "') WHERE NAME_OF_COST = " + label2 + "");
         db.execSQL("UPDATE typecosts SET START_LIMIT = null WHERE NAME_OF_COST = '" + label + "'");
         db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = null WHERE NAME_OF_COST = '" + label + "'");
-        //UPDATE typecosts SET START_LIMIT = 500 WHERE NAME_OF_COST = "Еда"
         db.close();
     }
 
+
+
+
+    //===================??????????????============================================
+    public void SetStartPlans(String label1, String label2) {
+        if ((label1.equals("01"))) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = START_LIMIT WHERE START_LIMIT >= PERIODIC_LIMIT");
+            db.close();
+        }
+    }
 }

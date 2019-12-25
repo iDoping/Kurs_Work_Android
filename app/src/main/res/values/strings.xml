@@ -1,13 +1,36 @@
 <resources>
-    <string name="app_name">Главная страница</string>
-    <string name="costs_button">Добавить</string>
-    <string name="add_costs_button">Добавить</string>
-    <string name="income_button">Добавить</string>
+    <string name="app_name">Учет финансов</string>
+    <string name="add_new_plans_name">Добавить новый лимит</string>
+    <string name="planning_of_costs_name">Планирование расходов</string>
+    <string name="choose_income_name">Список доходов</string>
+    <string name="statistics_income_name">Статистика по доходам</string>
+    <string name="statistics_name">Статистика по расходам</string>
+    <string name="dialog_incomes_name">Добавить категорию дохода</string>
+    <string name="dialog_costs_name">Добавить категорию расхода</string>
+    <string name="income_name">Доходы</string>
+    <string name="costs_name">Расходы</string>
+    <string name="сhoose_cost_name">Список расходов</string>
+
+    <string name="add_buttons">Добавить</string>
+    <string name="cancel_buttons">Отмена</string>
+    <string name="delete_buttons">Удалить</string>
     <string name="graphic_info_button">Перейти</string>
+    <string name="graphic_info">Графический анализ доходов и расходов:</string>
     <string name="planning_button">Перейти</string>
-    <string name="costs_textview">Расходы</string>
-    <string name="income_textview">Доходы</string>
-    <string name="graphic_info_textview">Информация о доходах и расходах</string>
+    <string name="start_date">Начальная дата</string>
+    <string name="end_date">Конечная дата</string>
+    <string name="limits">Лимиты:</string>
+    <string name="build_graphic">Построить</string>
+    <string name="select_time_period">Выберите временной период:</string>
+    <string name="btn_costs">Расходы</string>
+    <string name="btn_incomes">Доходы</string>
+    <string name="cats_name">Название категории</string>
+    <string name="summ_hint">Сумма</string>
+    <string name="date_hint">Дата</string>
+    <string name="btn_select">Выбрать</string>
+
+
+    <string name="limits_btn">Задать</string>
     <string name="planning_textview">Планирование финансов</string>
 
 </resources>

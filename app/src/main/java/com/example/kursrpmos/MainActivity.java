@@ -6,12 +6,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+
 public class MainActivity extends AppCompatActivity {
+
+    public DBHelper dbHelper = new DBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Date currentDate = new Date();
+        // Форматирование времени как "день.месяц.год"
+        DateFormat dateFormat = new SimpleDateFormat("dd", Locale.getDefault());
+        String day = dateFormat.format(currentDate);
+        // Форматирование времени как "часы:минуты:секунды"
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        String time = timeFormat.format(currentDate);
+        dbHelper.SetStartPlans(day,time);
     }
 
     public void onCostsButtonClick(View view) {

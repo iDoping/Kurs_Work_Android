@@ -10,68 +10,35 @@
         android:id="@+id/tvCosts"
         android:layout_width="68dp"
         android:layout_height="18dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="40dp"
-        android:text="@string/costs_textview"
+        android:text="Расходы:"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnCosts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_width="128dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
         android:onClick="onCostsButtonClick"
-        android:text="@string/costs_button"
+        android:text="@string/add_buttons"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnIncome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
+        android:layout_width="128dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="120dp"
         android:onClick="onIncomeButtonClick"
-        android:text="@string/income_button"
+        android:text="@string/add_buttons"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnGraphicCostsInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="356dp"
-        android:onClick="onGraphicInfoClick"
-        android:text="Расходы"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnCostSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="488dp"
-        android:onClick="onCostSettingsClick"
-        android:text="Расходы"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnGraphicIncomesInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="356dp"
-        android:onClick="onGraphicIncomesInfo"
-        android:text="Доходы"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.863"
+        app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,10 +46,58 @@
         android:id="@+id/tvIncome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
-        android:text="@string/income_textview"
+        android:layout_marginTop="132dp"
+        android:text="Доходы:"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnIncomeSettings"
+        android:layout_width="128dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="476dp"
+        android:onClick="onIncomeSettingsClick"
+        android:text="Доходы"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnGraphicIncomesInfo"
+        android:layout_width="128dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="344dp"
+        android:onClick="onGraphicIncomesInfo"
+        android:text="Доходы"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnCostSettings"
+        android:layout_width="128dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="476dp"
+        android:onClick="onCostSettingsClick"
+        android:text="Расходы"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.116"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnGraphicCostsInfo"
+        android:layout_width="128dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="344dp"
+        android:onClick="onGraphicInfoClick"
+        android:text="Расходы"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,9 +105,10 @@
         android:id="@+id/tvGraphicInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="312dp"
-        android:text="@string/graphic_info_textview"
+        android:layout_marginTop="300dp"
+        android:text="@string/graphic_info"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -100,36 +116,33 @@
         android:id="@+id/tvPlanning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="448dp"
+        android:layout_marginTop="432dp"
         android:text="Редактирование доходов и расходов"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnIncomeSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="488dp"
-        android:onClick="onIncomeSettingsClick"
-        android:text="Доходы"
+        android:id="@+id/btnPlanning"
+        android:layout_width="128dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="200dp"
+        android:onClick="onPlanningClick"
+        android:text="@string/limits_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.863"
+        app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnPlanning"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="556dp"
-        android:onClick="onPlanningClick"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="220dp"
+        android:text="@string/limits"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

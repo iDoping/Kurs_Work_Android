@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onAddNewPlanClick"
-            android:text="Добавить" />
+            android:text="@string/add_buttons" />
 
         <Button
             android:id="@+id/btnDeleteNewPlan"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onDeleteNewPlanClick"
-            android:text="Удалить" />
+            android:text="@string/delete_buttons" />
 
     </LinearLayout>
 

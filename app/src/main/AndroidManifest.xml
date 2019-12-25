@@ -7,19 +7,51 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddNewPlans"></activity>
-        <activity android:name=".PlanningOfCosts" />
-        <activity android:name=".Choose_income" />
-        <activity android:name=".Statistics_income" />
-        <activity android:name=".Statistics" />
-        <activity android:name=".Dialog_incomes" />
-        <activity android:name=".Dialog_costs" />
-        <activity android:name=".Dialog" />
-        <activity android:name=".Income" />
-        <activity android:name=".Costs" />
-        <activity android:name=".Choose_cost" />
+
+        <activity
+            android:name=".AddNewPlans"
+            android:label="@string/add_new_plans_name"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".PlanningOfCosts"
+            android:label="@string/planning_of_costs_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Choose_income"
+            android:label="@string/choose_income_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Statistics_income"
+            android:label="@string/statistics_income_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Statistics"
+            android:label="@string/statistics_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Dialog_incomes"
+            android:label="@string/dialog_incomes_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Dialog_costs"
+            android:label="@string/dialog_costs_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Income"
+            android:label="@string/income_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Costs"
+            android:label="@string/costs_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Choose_cost"
+            android:label="@string/сhoose_cost_name"
+            android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

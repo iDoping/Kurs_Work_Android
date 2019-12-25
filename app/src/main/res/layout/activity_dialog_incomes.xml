@@ -12,10 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginTop="240dp"
-        android:hint="Название категории"
+        android:hint="@string/cats_name"
+        android:inputType="textLongMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/btnCancelIncome"
@@ -23,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
         android:onClick="OnCancelIncomeClick"
-        android:text="Отмена"
+        android:text="@string/add_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
         android:onClick="onAddNewIncomeClick"
-        android:text="Добавить"
+        android:text="@string/add_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.948"
         app:layout_constraintStart_toStartOf="parent"

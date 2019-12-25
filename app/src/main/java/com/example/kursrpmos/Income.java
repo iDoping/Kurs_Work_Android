@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,6 +37,7 @@ public class Income extends AppCompatActivity {
         btnAddIncomes = findViewById(R.id.btnAddIncomes);
 
         etSumIncome = findViewById(R.id.etSumIncome);
+        etSumIncome.setInputType(InputType.TYPE_CLASS_NUMBER);
         etDateIncome = findViewById(R.id.etDateIncome);
 
         dbHelper = new DBHelper(this);
@@ -43,6 +45,7 @@ public class Income extends AppCompatActivity {
         spinIncCat = findViewById(R.id.spinIncCat);
 
         tvIncomeDateForSQL = findViewById(R.id.tvIncomeDateForSQL);
+        tvIncomeDateForSQL.setVisibility(View.INVISIBLE);
 
         setInitialDateTime();
         setInitialDateTimeForSQLite();
@@ -100,18 +103,9 @@ public class Income extends AppCompatActivity {
     };
 
     public void LoadSpinnerData() {
-        // database handler
-
-        // Spinner Drop down elements
         List<String> lables = dbHelper.getAllLabels2();
-
-        // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
-
-        // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
         spinIncCat.setAdapter(dataAdapter);
         dbHelper.close();
     }

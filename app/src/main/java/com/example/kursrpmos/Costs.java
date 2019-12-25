@@ -23,7 +23,7 @@ import java.util.List;
 
 public class Costs extends AppCompatActivity {
 
-    TextView tvCostDateForSQL, tvTest;
+    TextView tvCostDateForSQL, tvPlansText;
     Button btnAddCosts;
     DBHelper dbHelper;
     EditText etSum, etDate;
@@ -44,8 +44,9 @@ public class Costs extends AppCompatActivity {
         dbHelper = new DBHelper(this);
 
         spinner = findViewById(R.id.spinCostCat);
-        tvCostDateForSQL = findViewById(R.id.tvtestdate);
-        tvTest = findViewById(R.id.tvTest);
+        tvCostDateForSQL = findViewById(R.id.tvCostDateForSQL);
+        tvCostDateForSQL.setVisibility(View.INVISIBLE);
+        tvPlansText = findViewById(R.id.tvPlansText);
         setInitialDateTime();
         setInitialDateTimeForSQLite();
         LoadSpinnerData();
@@ -57,12 +58,12 @@ public class Costs extends AppCompatActivity {
                 String value = adapter.getItemAtPosition(i).toString();
                 String temp = dbHelper.getCostsPlans(value);
                 if (temp == null) {
-                    tvTest.setText("");
+                    tvPlansText.setText("");
                 } else {
                     if (Integer.valueOf(temp) < 0) {
-                        tvTest.setText("Лимит категории " + value + " превышен");
+                        tvPlansText.setText("Лимит категории " + value + " превышен");
                     } else {
-                        tvTest.setText("Лимит категории " + value + " составляет " + temp + " рублей");
+                        tvPlansText.setText("Лимит категории " + value + " составляет " + temp + " рублей");
                     }
                 }
             }
@@ -86,7 +87,7 @@ public class Costs extends AppCompatActivity {
             if (sum.equals("")) {
                 Toast.makeText(getApplicationContext(), "Заполните поле Сумма", Toast.LENGTH_SHORT).show();
             } else {
-                tvTest.setText("");
+                tvPlansText.setText("");
                 dbHelper.InsertCost(sum, DateForSQLite, cost_cat);
                 etSum.setText("");
                 Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
@@ -106,9 +107,9 @@ public class Costs extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
                 String temp = dbHelper.getCostsPlans(cost_cat);
                 if (Integer.valueOf(temp) < 0) {
-                    tvTest.setText("Лимит категории " + cost_cat + " превышен");
+                    tvPlansText.setText("Лимит категории " + cost_cat + " превышен");
                 } else {
-                    tvTest.setText("Лимит категории " + cost_cat + " составляет " + temp + " рублей");
+                    tvPlansText.setText("Лимит категории " + cost_cat + " составляет " + temp + " рублей");
                 }
             }
         }

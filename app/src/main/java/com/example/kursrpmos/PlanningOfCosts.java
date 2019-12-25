@@ -59,7 +59,7 @@ public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFr
 
     public void OnYesClickedPlans() {
 
-            dbHelper.TESTPLANS(SelectedPlan.getText().toString());
+            dbHelper.DeletePlans(SelectedPlan.getText().toString());
             PlansListItem.clear();
             SelectPlansToList();
             SelectedPlan.setText("");
