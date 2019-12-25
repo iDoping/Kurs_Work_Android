@@ -100,7 +100,7 @@ public class Statistics_income extends AppCompatActivity {
         ArrayList<BarEntry> barEntries = dbHelper.getBarEntriesIncomes(stDate, endDate);
         BarDataSet barDataSet = new BarDataSet(barEntries, "Расходы за указанный период");
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        final List<String> labels = dbHelper.GetIncomesBarLabel();
+        final List<String> labels = dbHelper.getIncomesBarLabel();
 
         BarData barData = new BarData(barDataSet);
         barData.setBarWidth(0.5f);

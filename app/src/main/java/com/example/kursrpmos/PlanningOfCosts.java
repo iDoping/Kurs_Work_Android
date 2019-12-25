@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFragmentPlans.DialogListenerPlans {
 
-    ListView PlansList;
+    ListView plansList;
     DBHelper dbHelper;
-    ArrayList<String> PlansListItem;
+    ArrayList<String> plansListItem;
     ArrayAdapter adapter;
-    TextView SelectedPlan;
+    TextView selectedPlan;
 
 
     @Override
@@ -28,19 +28,19 @@ public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planning_of_costs);
 
-        SelectedPlan = findViewById(R.id.SelectedPlan);
+        selectedPlan = findViewById(R.id.SelectedPlan);
         dbHelper = new DBHelper(this);
-        PlansListItem = new ArrayList<>();
-        PlansList = findViewById(R.id.PlansList);
+        plansListItem = new ArrayList<>();
+        plansList = findViewById(R.id.PlansList);
         SelectPlansToList();
 
-        PlansList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        plansList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String text = PlansList.getItemAtPosition(position).toString();
+                String text = plansList.getItemAtPosition(position).toString();
                 String str [] = text.split(":");
-                SelectedPlan.setText(str[0].trim());
+                selectedPlan.setText(str[0].trim());
             }
         });
     }
@@ -57,13 +57,12 @@ public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFr
             dialog.show(getSupportFragmentManager(), "plans");
     }
 
-    public void OnYesClickedPlans() {
+    public void onYesClickedPlans() {
 
-            dbHelper.DeletePlans(SelectedPlan.getText().toString());
-            PlansListItem.clear();
+            dbHelper.deletePlans(selectedPlan.getText().toString());
+            plansListItem.clear();
             SelectPlansToList();
-            SelectedPlan.setText("");
-            //dbHelper.LabelsOfCosts();
+            selectedPlan.setText("");
             Toast.makeText(getApplicationContext(), "Лимит удален", Toast.LENGTH_SHORT).show();
     }
 
@@ -75,23 +74,22 @@ public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFr
             String label2 = data.getStringExtra(AddNewPlans.TEMP4);
             dbHelper.insertPlan(label1,label2);
         }
-        PlansListItem.clear();
+        plansListItem.clear();
         SelectPlansToList();
-        SelectedPlan.setText("");
-        //dbHelper.LabelsOfCosts();
+        selectedPlan.setText("");
     }
 
     public void SelectPlansToList() {
-        Cursor cursor = dbHelper.SelectPlansToList();
+        Cursor cursor = dbHelper.selectPlansToList();
 
         while (cursor.moveToNext()) {
             String temp = cursor.getString(1);
             if (cursor.getString(1) == null){
                 temp = "0";
             }
-            PlansListItem.add(cursor.getString(0)+ " : " + temp + " рублей");
+            plansListItem.add(cursor.getString(0)+ " : " + temp + " рублей");
         }
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, PlansListItem);
-        PlansList.setAdapter(adapter);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, plansListItem);
+        plansList.setAdapter(adapter);
     }
 }

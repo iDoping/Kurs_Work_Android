@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         // Форматирование времени как "часы:минуты:секунды"
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         String time = timeFormat.format(currentDate);
-        dbHelper.SetStartPlans(day,time);
+        dbHelper.setStartPlans(day,time);
     }
 
     public void onCostsButtonClick(View view) {

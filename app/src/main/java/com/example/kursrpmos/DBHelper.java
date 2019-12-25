@@ -65,43 +65,43 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertLabel(String label) {
+    public void insertTypeCost(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO typecosts(NAME_OF_COST) VALUES ('" + label + "')");
         db.close();
     }
 
-    public void insertLabel2(String label) {
+    public void insertTypeIncome(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO typeincomes(NAME_OF_INC) VALUES ('" + label + "')");
         db.close();
     }
 
-    public void InsertCost(String label1, String label2, String label3) {
+    public void insertCost(String label1, String label2, String label3) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO costs(COST_SUM, COST_DATE, COST_CATEGORY) VALUES (" + label1 + ",'" + label2 + "',(SELECT _id FROM typecosts WHERE NAME_OF_COST = '" + label3 + "'))");
         db.close();
     }
 
-    public void InsertIncome(String label1, String label2, String label3) {
+    public void insertIncome(String label1, String label2, String label3) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO incomes(INC_SUM, INC_DATE, INC_CATEGORY) VALUES (" + label1 + ",'" + label2 + "',(SELECT _id FROM typeincomes WHERE NAME_OF_INC = '" + label3 + "'))");
         db.close();
     }
 
-    public void DeleteCost(String label) {
+    public void deleteCost(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM typecosts where NAME_OF_COST = '" + label + "'");
         db.close();
     }
 
-    public void DeleteIncome(String label) {
+    public void deleteIncome(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM typeincomes where NAME_OF_INC = '" + label + "'");
         db.close();
     }
 
-    public List<String> getAllLabels() {
+    public List<String> getAllCosts() {
         List<String> labels = new ArrayList<String>();
         String selectQuery = "SELECT  * FROM " + TABLE_TYPECOSTS;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -115,11 +115,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-
         return labels;
     }
 
-    public List<String> getAllLabels2() {
+    public List<String> getAllIncomes() {
         List<String> labels = new ArrayList<String>();
         String selectQuery = "SELECT  * FROM " + TABLE_TYPEINCOMES;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -177,112 +176,59 @@ public class DBHelper extends SQLiteOpenHelper {
         return rv;
     }
 
-    public List<String> LabelsOfCosts() {
+    public List<String> getCostsBarLabel() {
 
         List<String> labels = new ArrayList<String>();
         labels.add(" ");
-        String selectQuery = "SELECT SUM(COST_SUM),NAME_OF_COST FROM COSTS JOIN TYPECOSTS ON COSTS.COST_CATEGORY = TYPECOSTS._id group by COST_CATEGORY ";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                labels.add(cursor.getString(1));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-
-        return labels;
-    }
-
-    public List<String> LabelsOfIncomes() {
-
-        List<String> labels = new ArrayList<String>();
-        labels.add(" ");
-        String selectQuery = "SELECT SUM(INC_SUM),NAME_OF_INC FROM INCOMES JOIN TYPEINCOMES ON INCOMES.INC_CATEGORY = TYPEINCOMES._id group by INC_CATEGORY ";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                labels.add(cursor.getString(1));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-
-        return labels;
-    }
-
-    public List<String> GetCostsBarLabel() {
-
-        List<String> labels = new ArrayList<String>();
-        labels.add(" ");
-
-        // Select All Query
-
         String selectQuery = "SELECT NAME_OF_COST FROM COSTS JOIN TYPECOSTS ON COSTS.COST_CATEGORY = TYPECOSTS._id group by COST_CATEGORY ";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 labels.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
 
-        // closing connection
         cursor.close();
         db.close();
-
         return labels;
     }
 
 
-    public List<String> GetIncomesBarLabel() {
+    public List<String> getIncomesBarLabel() {
 
         List<String> labels = new ArrayList<String>();
         labels.add(" ");
-
-        // Select All Query
-
         String selectQuery = "SELECT NAME_OF_INC FROM INCOMES JOIN TYPEINCOMES ON INCOMES.INC_CATEGORY = TYPEINCOMES._id group by INC_CATEGORY ";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 labels.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
 
-        // closing connection
         cursor.close();
         db.close();
-
         return labels;
     }
 
-    public Cursor SelectCostsToList() {
+    public Cursor selectCostsToList() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT NAME_OF_COST FROM " + TABLE_TYPECOSTS;
         return db.rawQuery(query, null);
     }
 
-    public Cursor SelectPlansToList() {
+    public Cursor selectPlansToList() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT NAME_OF_COST,START_LIMIT FROM " + TABLE_TYPECOSTS;
         return db.rawQuery(query, null);
     }
 
-    public Cursor SelectIncomesToList() {
+    public Cursor selectIncomesToList() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_TYPEINCOMES;
         return db.rawQuery(query, null);
@@ -317,7 +263,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void DeletePlans(String label) {
+    public void deletePlans(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE typecosts SET START_LIMIT = null WHERE NAME_OF_COST = '" + label + "'");
         db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = null WHERE NAME_OF_COST = '" + label + "'");
@@ -325,10 +271,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-
-
     //===================??????????????============================================
-    public void SetStartPlans(String label1, String label2) {
+    public void setStartPlans(String label1, String label2) {
         if ((label1.equals("01"))) {
             SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = START_LIMIT WHERE START_LIMIT >= PERIODIC_LIMIT");

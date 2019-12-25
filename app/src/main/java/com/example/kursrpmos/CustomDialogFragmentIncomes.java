@@ -21,7 +21,7 @@ public class CustomDialogFragmentIncomes extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.OnYesClickedIncomes();
+                        listener.onYesClickedIncomes();
                     }
                 })
                 .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
@@ -34,7 +34,7 @@ public class CustomDialogFragmentIncomes extends DialogFragment {
     }
 
     public interface DialogListenerIncomes {
-        void OnYesClickedIncomes();
+        void onYesClickedIncomes();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class CustomDialogFragmentIncomes extends DialogFragment {
         try {
             listener = (DialogListenerIncomes) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "lol");
+            throw new ClassCastException(context.toString() + "Must implement DialogListenerIncomes");
         }
     }
 }

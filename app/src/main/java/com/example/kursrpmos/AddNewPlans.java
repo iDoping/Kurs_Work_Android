@@ -34,7 +34,7 @@ public class AddNewPlans extends AppCompatActivity {
         etPlanAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
         spinPlanCat = findViewById(R.id.spinPlanCat);
         dbHelper = new DBHelper(this);
-        LoadSpinnerData();
+        loadSpinnerData();
     }
 
     public void onAddNewPlanClick(View view) {
@@ -55,9 +55,8 @@ public class AddNewPlans extends AppCompatActivity {
         }
     }
 
-    public void LoadSpinnerData() {
-
-        List<String> lables = dbHelper.getAllLabels();
+    public void loadSpinnerData() {
+        List<String> lables = dbHelper.getAllCosts();
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPlanCat.setAdapter(dataAdapter);

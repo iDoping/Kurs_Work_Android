@@ -20,23 +20,23 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
     DBHelper dbHelper;
     ArrayList<String> listItem;
     ArrayAdapter adapter;
-    TextView SelectedCost;
+    TextView selectedCost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_cost);
-        SelectedCost = findViewById(R.id.SelectedCost);
+        selectedCost = findViewById(R.id.SelectedCost);
         dbHelper = new DBHelper(this);
         listItem = new ArrayList<>();
         costCategoryList = findViewById(R.id.costCategoryList);
-        SelectCostsToList();
+        selectCostsToList();
 
         costCategoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String text = costCategoryList.getItemAtPosition(position).toString();
-                SelectedCost.setText(text);
+                selectedCost.setText(text);
             }
         });
     }
@@ -53,22 +53,21 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
         dialog.show(getSupportFragmentManager(), "custom");
     }
 
-    public void OnYesClicked() {
+    public void onYesClicked() {
         if (listItem.size() == 1)
         {
             Toast.makeText(getApplicationContext(), "Должна остаться хотя-бы одна категория. Сначала создайте новую категорию", Toast.LENGTH_SHORT).show();
         }
         else {
-            dbHelper.DeleteCost(SelectedCost.getText().toString());
+            dbHelper.deleteCost(selectedCost.getText().toString());
             listItem.clear();
-            SelectCostsToList();
-            SelectedCost.setText("");
-            dbHelper.LabelsOfCosts();
+            selectCostsToList();
+            selectedCost.setText("");
         }
     }
 
-    public void SelectCostsToList() {
-        Cursor cursor = dbHelper.SelectCostsToList();
+    public void selectCostsToList() {
+        Cursor cursor = dbHelper.selectCostsToList();
 
         while (cursor.moveToNext()) {
             listItem.add(cursor.getString(0));
@@ -82,11 +81,10 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             String label = data.getStringExtra(Dialog_costs.TEMP);
-            dbHelper.insertLabel(label);
+            dbHelper.insertTypeCost(label);
         }
         listItem.clear();
-        SelectCostsToList();
-        SelectedCost.setText("");
-        dbHelper.LabelsOfCosts();
+        selectCostsToList();
+        selectedCost.setText("");
     }
 }

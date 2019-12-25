@@ -21,7 +21,7 @@ public class CustomDialogFragment extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    listener.OnYesClicked();
+                    listener.onYesClicked();
                     }
                 })
                 .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
@@ -34,7 +34,7 @@ public class CustomDialogFragment extends DialogFragment {
     }
 
     public interface DialogListenerCosts {
-        void OnYesClicked();
+        void onYesClicked();
     }
 
     @Override

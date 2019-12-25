@@ -49,7 +49,7 @@ public class Income extends AppCompatActivity {
 
         setInitialDateTime();
         setInitialDateTimeForSQLite();
-        LoadSpinnerData();
+        loadSpinnerData();
     }
 
     public void onAddIncomesClick(View view) {
@@ -61,7 +61,7 @@ public class Income extends AppCompatActivity {
         if (income_sum.equals("")) {
             Toast.makeText(getApplicationContext(), "Заполните поле Сумма", Toast.LENGTH_SHORT).show();
         } else {
-            dbHelper.InsertIncome(income_sum, income_date, income_cat);
+            dbHelper.insertIncome(income_sum, income_date, income_cat);
             etSumIncome.setText("");
             Toast.makeText(getApplicationContext(), "Доход добавлен", Toast.LENGTH_SHORT).show();
         }
@@ -102,8 +102,8 @@ public class Income extends AppCompatActivity {
         }
     };
 
-    public void LoadSpinnerData() {
-        List<String> lables = dbHelper.getAllLabels2();
+    public void loadSpinnerData() {
+        List<String> lables = dbHelper.getAllIncomes();
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinIncCat.setAdapter(dataAdapter);
@@ -122,8 +122,8 @@ public class Income extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             String label = data.getStringExtra(Dialog_incomes.TEMP2);
-            dbHelper.insertLabel2(label);
+            dbHelper.insertTypeIncome(label);
         }
-        LoadSpinnerData();
+        loadSpinnerData();
     }
 }

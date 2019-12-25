@@ -9,18 +9,13 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -109,7 +104,7 @@ public class Statistics extends AppCompatActivity {
         ArrayList<BarEntry> barEntries = dbHelper.getBarEntriesCosts(stDate, endDate);
         BarDataSet barDataSet = new BarDataSet(barEntries, "Расходы за указанный период");
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        final List<String> labels = dbHelper.GetCostsBarLabel();
+        final List<String> labels = dbHelper.getCostsBarLabel();
 
         BarData barData = new BarData(barDataSet);
         barData.setBarWidth(0.5f);

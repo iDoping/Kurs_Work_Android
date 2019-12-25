@@ -20,23 +20,23 @@ public class Choose_income extends AppCompatActivity implements CustomDialogFrag
     DBHelper dbHelper;
     ArrayList<String> listItemIncomes;
     ArrayAdapter adapterincomes;
-    TextView SelectedIncome;
+    TextView selectedIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_income);
-        SelectedIncome = findViewById(R.id.SelectedIncome);
+        selectedIncome = findViewById(R.id.SelectedIncome);
         dbHelper = new DBHelper(this);
         listItemIncomes = new ArrayList<>();
         incomeCategoryList = findViewById(R.id.incomeCategoryList);
-        SelectIncomesToList();
+        selectIncomesToList();
 
         incomeCategoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String text = incomeCategoryList.getItemAtPosition(position).toString();
-                SelectedIncome.setText(text);
+                selectedIncome.setText(text);
             }
         });
     }
@@ -53,27 +53,25 @@ public class Choose_income extends AppCompatActivity implements CustomDialogFrag
         dialog.show(getSupportFragmentManager(), "custom");
     }
 
-    public void OnYesClickedIncomes() {
-        if (listItemIncomes.size() == 1)
-        {
+    public void onYesClickedIncomes() {
+        if (listItemIncomes.size() == 1) {
             Toast.makeText(getApplicationContext(), "Должна остаться хотя-бы одна категория. Сначала создайте новую категорию", Toast.LENGTH_SHORT).show();
         } else {
-            dbHelper.DeleteIncome(SelectedIncome.getText().toString());
+            dbHelper.deleteIncome(selectedIncome.getText().toString());
             listItemIncomes.clear();
-            SelectIncomesToList();
-            SelectedIncome.setText("");
-            dbHelper.LabelsOfIncomes();
+            selectIncomesToList();
+            selectedIncome.setText("");
         }
     }
 
-    public void SelectIncomesToList() {
-        Cursor cursor = dbHelper.SelectIncomesToList();
+    public void selectIncomesToList() {
+        Cursor cursor = dbHelper.selectIncomesToList();
 
         while (cursor.moveToNext()) {
             listItemIncomes.add(cursor.getString(1));
         }
         adapterincomes = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItemIncomes);
-        incomeCategoryList.setAdapter(adapterincomes );
+        incomeCategoryList.setAdapter(adapterincomes);
     }
 
     @Override
@@ -81,11 +79,10 @@ public class Choose_income extends AppCompatActivity implements CustomDialogFrag
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             String label = data.getStringExtra(Dialog_incomes.TEMP2);
-            dbHelper.insertLabel2(label);
+            dbHelper.insertTypeIncome(label);
         }
         listItemIncomes.clear();
-        SelectIncomesToList();
-        SelectedIncome.setText("");
-        dbHelper.LabelsOfIncomes();
+        selectIncomesToList();
+        selectedIncome.setText("");
     }
 }

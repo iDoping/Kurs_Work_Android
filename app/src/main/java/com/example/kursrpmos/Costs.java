@@ -49,7 +49,7 @@ public class Costs extends AppCompatActivity {
         tvPlansText = findViewById(R.id.tvPlansText);
         setInitialDateTime();
         setInitialDateTimeForSQLite();
-        LoadSpinnerData();
+        loadSpinnerData();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -88,7 +88,7 @@ public class Costs extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Заполните поле Сумма", Toast.LENGTH_SHORT).show();
             } else {
                 tvPlansText.setText("");
-                dbHelper.InsertCost(sum, DateForSQLite, cost_cat);
+                dbHelper.insertCost(sum, DateForSQLite, cost_cat);
                 etSum.setText("");
                 Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
             }
@@ -102,7 +102,7 @@ public class Costs extends AppCompatActivity {
                 int end_value = Integer.valueOf(sum);
                 int result = start_value - end_value;
                 dbHelper.insertChanges(result, cost_cat);
-                dbHelper.InsertCost(sum, DateForSQLite, cost_cat);
+                dbHelper.insertCost(sum, DateForSQLite, cost_cat);
                 etSum.setText("");
                 Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
                 String temp = dbHelper.getCostsPlans(cost_cat);
@@ -150,11 +150,11 @@ public class Costs extends AppCompatActivity {
         }
     };
 
-    public void LoadSpinnerData() {
+    public void loadSpinnerData() {
         // database handler
 
         // Spinner Drop down elements
-        List<String> lables = dbHelper.getAllLabels();
+        List<String> lables = dbHelper.getAllCosts();
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
@@ -179,8 +179,8 @@ public class Costs extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             String label = data.getStringExtra(Dialog_costs.TEMP);
-            dbHelper.insertLabel(label);
+            dbHelper.insertTypeCost(label);
         }
-        LoadSpinnerData();
+        loadSpinnerData();
     }
 }
