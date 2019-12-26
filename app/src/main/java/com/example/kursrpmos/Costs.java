@@ -43,7 +43,7 @@ public class Costs extends AppCompatActivity {
         btnAddCosts = findViewById(R.id.btnAddCosts);
 
         etSum = findViewById(R.id.etSumm);
-        etSum.setInputType(InputType.TYPE_CLASS_NUMBER);
+        etSum.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_CLASS_NUMBER);
         etDate = findViewById(R.id.etDate);
 
         dbHelper = new DBHelper(this);
@@ -72,7 +72,7 @@ public class Costs extends AppCompatActivity {
                 if (temp == null) {
                     tvPlansText.setText("");
                 } else {
-                    if (Integer.valueOf(temp) < 0) {
+                    if (Double.valueOf(temp) < 0) {
                         tvPlansText.setText("Лимит категории " + value + " превышен");
                     } else {
                         tvPlansText.setText("Лимит категории " + value + " составляет " + temp + " рублей");
@@ -118,15 +118,15 @@ public class Costs extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Заполните поле Сумма", Toast.LENGTH_SHORT).show();
             } else {
 
-                int start_value = Integer.valueOf(dbHelper.getCostsPlans(cost_cat));
-                int end_value = Integer.valueOf(sum);
-                int result = start_value - end_value;
+                double start_value = Double.valueOf(dbHelper.getCostsPlans(cost_cat));
+                double end_value = Double.valueOf(sum);
+                double result = start_value - end_value;
                 dbHelper.insertChanges(result, cost_cat);
                 dbHelper.insertCost(sum, DateForSQLite, cost_cat);
                 etSum.setText("");
                 Toast.makeText(getApplicationContext(), "Расход добавлен", Toast.LENGTH_SHORT).show();
                 String temp = dbHelper.getCostsPlans(cost_cat);
-                if (Integer.valueOf(temp) < 0) {
+                if (Double.valueOf(temp) < 0) {
                     tvPlansText.setText("Лимит категории " + cost_cat + " превышен");
                 } else {
                     tvPlansText.setText("Лимит категории " + cost_cat + " составляет " + temp + " рублей");

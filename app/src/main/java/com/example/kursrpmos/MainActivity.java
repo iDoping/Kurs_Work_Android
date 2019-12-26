@@ -12,9 +12,13 @@ import java.util.Date;
 import java.util.Locale;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
-    //public DBHelper dbHelper = new DBHelper(this);
+    public DBHelper dbHelper = new DBHelper(this);
+    Date currentDate = new Date();
+    DateFormat dateFormat = new SimpleDateFormat("MM", Locale.getDefault());
+    String MONTH = dateFormat.format(currentDate);
 
     /**
      * Задаёт начальную установку параметров при инициализации активности
@@ -25,14 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Date currentDate = new Date();
-        // // Форматирование времени как "день.месяц.год"
-        // DateFormat dateFormat = new SimpleDateFormat("dd", Locale.getDefault());
-        // String day = dateFormat.format(currentDate);
-        // // Форматирование времени как "часы:минуты:секунды"
-        // DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        // String time = timeFormat.format(currentDate);
-        // dbHelper.setStartPlans(day,time);
+        dbHelper.setStartPlans(MONTH);
     }
 
     /**

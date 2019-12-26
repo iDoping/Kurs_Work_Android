@@ -38,6 +38,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COL_INC_TYPE_ID = "ID_INCOME";
     public static final String COL_NAME_INC = "NAME_OF_INC";
 
+    /**
+     * Конструктор класса DBHelper
+     *
+     * @param context контекст Activity
+     */
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -50,20 +55,21 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Создание таблиц в базе данных
-     * @param db Объект базы данных
      *
+     * @param db Объект базы данных
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_COSTS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, COST_DATE TEXT, COST_CATEGORY INTEGER, COST_SUM REAL,CONSTRAINT COST_CATEGORY FOREIGN KEY(COST_CATEGORY) REFERENCES typecosts(_id) ON DELETE CASCADE)");
-        db.execSQL("CREATE TABLE " + TABLE_TYPECOSTS + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_COST TEXT,START_LIMIT REAL,PERIODIC_LIMIT REAL)");
+        db.execSQL("CREATE TABLE " + TABLE_TYPECOSTS + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_COST TEXT,START_LIMIT REAL,PERIODIC_LIMIT REAL,TEST_FIELD text)");
         db.execSQL("CREATE TABLE " + TABLE_INCOMES + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, INC_DATE TEXT, INC_CATEGORY INTEGER, INC_SUM REAL, CONSTRAINT INC_CATEGORY FOREIGN KEY(INC_CATEGORY) REFERENCES typeincomes(_id) ON DELETE CASCADE)");
         db.execSQL("CREATE TABLE " + TABLE_TYPEINCOMES + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_INC TEXT)");
     }
 
     /**
+     * Пересоздание таблиц при изменении структуры БД
      *
-     * @param db Объект класса базы данных
+     * @param db         Объект класса базы данных
      * @param oldVersion Старая версия базы данных
      * @param newVersion Новая версия базы данных
      */
@@ -77,6 +83,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Добавление названия новой категории расхода в таблицу
      *
      * @param label Название категории расхода
      */
@@ -87,6 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Добавление названия новой категории дохода в таблицу
      *
      * @param label Название категории дохода
      */
@@ -97,6 +105,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Добавление нового расхода в таблицу
      *
      * @param label1 Сумма расхода
      * @param label2 Дата расхода
@@ -109,6 +118,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Добавление нового дохода в таблицу
      *
      * @param label1 Сумма расхода
      * @param label2 Дата расхода
@@ -121,6 +131,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Удаление названия категории расхода в таблице
      *
      * @param label Название категорий расходов
      */
@@ -131,6 +142,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Удаление названия категории дохода в таблице
      *
      * @param label Название категорий доходов
      */
@@ -141,6 +153,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Выборка всех названий расходов в таблицу
      *
      * @return Возвращает названия всех категорий расходов
      */
@@ -162,6 +175,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Выборка всех названий доходов в таблицу
      *
      * @return Возвращает названия всех категорий доходов
      */
@@ -184,6 +198,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Выборка суммы расходов, сгруппированной по категориям, в промежутке от даты начала до даты конца периода
      *
      * @param label1 Дата начала периода
      * @param label2 Дата конца периода
@@ -210,6 +225,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Выборка суммы доходов, сгруппированной по категориям, в промежутке от даты начала до даты конца периода
      *
      * @param label1 Дата начала периода
      * @param label2 Дата конца периода
@@ -236,6 +252,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Выборка сгруппированного списка категорий расходов
      *
      * @return Сгруппированный список категорий расходов
      */
@@ -259,6 +276,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Выборка сгруппированного списка категорий доходов
      *
      * @return Сгруппированный список категорий доходов
      */
@@ -283,6 +301,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Выборка всех названий категорий расходов
      *
      * @return Возвращает результат запроса, в котором выбираются все имена расходов из таблицы
      */
@@ -293,6 +312,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Выборка всех названий расходов и начальных лимитов из таблицы
      *
      * @return Возвращает результат запроса, в котором выбираются все названия расходов и начальные лимиты из таблицы
      */
@@ -303,6 +323,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Выборка всех названий категорий доходов
      *
      * @return Возвращает результат запроса, в котором выбираются все названия доходов из таблицы
      */
@@ -313,18 +334,20 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Установка лимитов для заданной категории
      *
      * @param label1 Значение лимита
      * @param label2 Название категории расхода
      */
-    public void insertPlan(String label1, String label2) {
+    public void insertPlan(String label1, String label2, String month) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE typecosts SET START_LIMIT = " + label1 + " WHERE NAME_OF_COST = '" + label2 + "'");
-        db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = " + label1 + " WHERE NAME_OF_COST = '" + label2 + "'");
+        db.execSQL("UPDATE typecosts SET START_LIMIT = " + label1 + ",TEST_FIELD = '" + month + "' WHERE NAME_OF_COST = '" + label2 + "'");
+        db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = " + label1 + ",TEST_FIELD ='" + month + "' WHERE NAME_OF_COST = '" + label2 + "'");
         db.close();
     }
 
     /**
+     * Выборка лимитов, изменяющихся в связи с действиями пользователя
      *
      * @param label Название категории расхода
      * @return Возвращает лимиты, которые изменяются в связи с действиями пользователя
@@ -346,17 +369,19 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Добавление в таблицу измененного пользователем значения лимита
      *
      * @param label1 Лимит, который изменяется в связи с действиями пользователя
      * @param label2 Название категории расхода
      */
-    public void insertChanges(int label1, String label2) {
+    public void insertChanges(double label1, String label2) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = " + label1 + " WHERE NAME_OF_COST = '" + label2 + "'");
         db.close();
     }
 
     /**
+     * Изменение значения полей для устранения лимита у выбранной категории
      *
      * @param label Название категории расхода
      */
@@ -367,13 +392,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
-    //===================??????????????============================================
-    public void setStartPlans(String label1, String label2) {
-        if ((label1.equals("01"))) {
-            SQLiteDatabase db = this.getWritableDatabase();
-            db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = START_LIMIT WHERE START_LIMIT >= PERIODIC_LIMIT");
-            db.close();
-        }
+    public void setStartPlans(String label) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = START_LIMIT WHERE TEST_FIELD != '" + label + "'");
+        db.execSQL("UPDATE typecosts SET TEST_FIELD = '" + label + "' WHERE TEST_FIELD != '" + label + "'");
+        db.close();
     }
 }

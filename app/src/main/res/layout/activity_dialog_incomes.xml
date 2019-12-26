@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
         android:onClick="OnCancelIncomeClick"
-        android:text="@string/add_buttons"
+        android:text="@string/cancel_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

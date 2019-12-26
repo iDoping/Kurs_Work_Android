@@ -42,7 +42,7 @@ public class Income extends AppCompatActivity {
         btnAddIncomes = findViewById(R.id.btnAddIncomes);
 
         etSumIncome = findViewById(R.id.etSumIncome);
-        etSumIncome.setInputType(InputType.TYPE_CLASS_NUMBER);
+        etSumIncome.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_CLASS_NUMBER);
         etDateIncome = findViewById(R.id.etDateIncome);
 
         dbHelper = new DBHelper(this);

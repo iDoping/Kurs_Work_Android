@@ -12,7 +12,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFragmentPlans.DialogListenerPlans {
 
@@ -21,6 +25,10 @@ public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFr
     ArrayList<String> plansListItem;
     ArrayAdapter adapter;
     TextView selectedPlan;
+    Date currentDate = new Date();
+    DateFormat dateFormat = new SimpleDateFormat("MM", Locale.getDefault());
+    final String MONTH = dateFormat.format(currentDate);
+
 
     /**
      * Задаёт начальную установку параметров при инициализации активности
@@ -100,7 +108,7 @@ public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFr
         if (data != null) {
             String label1 = data.getStringExtra(AddNewPlans.TEMP3);
             String label2 = data.getStringExtra(AddNewPlans.TEMP4);
-            dbHelper.insertPlan(label1, label2);
+            dbHelper.insertPlan(label1, label2,MONTH);
         }
         plansListItem.clear();
         selectPlansToList();
