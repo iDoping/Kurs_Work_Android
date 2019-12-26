@@ -108,7 +108,7 @@ public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFr
         if (data != null) {
             String label1 = data.getStringExtra(AddNewPlans.TEMP3);
             String label2 = data.getStringExtra(AddNewPlans.TEMP4);
-            dbHelper.insertPlan(label1, label2,MONTH);
+            dbHelper.insertPlan(label1, label2, MONTH);
         }
         plansListItem.clear();
         selectPlansToList();

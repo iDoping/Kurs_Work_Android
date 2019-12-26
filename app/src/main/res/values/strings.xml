@@ -7,8 +7,8 @@
     <string name="statistics_name">Статистика по расходам</string>
     <string name="dialog_incomes_name">Добавить категорию дохода</string>
     <string name="dialog_costs_name">Добавить категорию расхода</string>
-    <string name="income_name">Доходы</string>
-    <string name="costs_name">Расходы</string>
+    <string name="income_name">Доходы:</string>
+    <string name="costs_name">Расходы:</string>
     <string name="сhoose_cost_name">Список расходов</string>
 
     <string name="add_buttons">Добавить</string>
@@ -28,6 +28,7 @@
     <string name="summ_hint">Сумма</string>
     <string name="date_hint">Дата</string>
     <string name="btn_select">Выбрать</string>
+    <string name="edtextinc_and_cost">Редактирование доходов и расходов:</string>
 
 
 

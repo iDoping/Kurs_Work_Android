@@ -61,9 +61,11 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_COSTS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, COST_DATE TEXT, COST_CATEGORY INTEGER, COST_SUM REAL,CONSTRAINT COST_CATEGORY FOREIGN KEY(COST_CATEGORY) REFERENCES typecosts(_id) ON DELETE CASCADE)");
-        db.execSQL("CREATE TABLE " + TABLE_TYPECOSTS + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_COST TEXT,START_LIMIT REAL,PERIODIC_LIMIT REAL,TEST_FIELD text)");
+        db.execSQL("CREATE TABLE " + TABLE_TYPECOSTS + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_COST TEXT,START_LIMIT REAL,PERIODIC_LIMIT REAL,RESET_MONTH text)");
         db.execSQL("CREATE TABLE " + TABLE_INCOMES + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, INC_DATE TEXT, INC_CATEGORY INTEGER, INC_SUM REAL, CONSTRAINT INC_CATEGORY FOREIGN KEY(INC_CATEGORY) REFERENCES typeincomes(_id) ON DELETE CASCADE)");
         db.execSQL("CREATE TABLE " + TABLE_TYPEINCOMES + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_INC TEXT)");
+        db.execSQL("INSERT INTO typecosts(NAME_OF_COST) VALUES ('Еда')");
+        db.execSQL("INSERT INTO typeincomes(NAME_OF_INC) VALUES ('Зарплата')");
     }
 
     /**
@@ -341,8 +343,8 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public void insertPlan(String label1, String label2, String month) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE typecosts SET START_LIMIT = " + label1 + ",TEST_FIELD = '" + month + "' WHERE NAME_OF_COST = '" + label2 + "'");
-        db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = " + label1 + ",TEST_FIELD ='" + month + "' WHERE NAME_OF_COST = '" + label2 + "'");
+        db.execSQL("UPDATE typecosts SET START_LIMIT = " + label1 + ",RESET_MONTH = '" + month + "' WHERE NAME_OF_COST = '" + label2 + "'");
+        db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = " + label1 + ",RESET_MONTH ='" + month + "' WHERE NAME_OF_COST = '" + label2 + "'");
         db.close();
     }
 
@@ -392,10 +394,15 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Возвращает лимиты в начальное состояние каждое начало нового месяца
+     *
+     * @param label Номер месяца в году
+     */
     public void setStartPlans(String label) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = START_LIMIT WHERE TEST_FIELD != '" + label + "'");
-        db.execSQL("UPDATE typecosts SET TEST_FIELD = '" + label + "' WHERE TEST_FIELD != '" + label + "'");
+        db.execSQL("UPDATE typecosts SET PERIODIC_LIMIT = START_LIMIT WHERE RESET_MONTH != '" + label + "'");
+        db.execSQL("UPDATE typecosts SET RESET_MONTH = '" + label + "' WHERE RESET_MONTH != '" + label + "'");
         db.close();
     }
 }

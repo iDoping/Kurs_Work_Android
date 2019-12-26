@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.Locale;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     public DBHelper dbHelper = new DBHelper(this);

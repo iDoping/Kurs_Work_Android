@@ -43,7 +43,7 @@ public class Costs extends AppCompatActivity {
         btnAddCosts = findViewById(R.id.btnAddCosts);
 
         etSum = findViewById(R.id.etSumm);
-        etSum.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_CLASS_NUMBER);
+        etSum.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
         etDate = findViewById(R.id.etDate);
 
         dbHelper = new DBHelper(this);
