@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import java.util.Locale;
 
 public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFragmentPlans.DialogListenerPlans {
 
+    Button btnDeleteNewPlan;
     ListView plansList;
     DBHelper dbHelper;
     ArrayList<String> plansListItem;
@@ -39,7 +41,7 @@ public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planning_of_costs);
-
+        btnDeleteNewPlan = findViewById(R.id.btnDeleteNewPlan);
         selectedPlan = findViewById(R.id.SelectedPlan);
         dbHelper = new DBHelper(this);
         plansListItem = new ArrayList<>();

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class Statistics_income extends AppCompatActivity {
 
+    Button btnSetStartIncome,btnSetEndDateIncome,btnMakeStatCosts;
     TextView tvStartDateIncome, tvEndDateIncome, tvStartDateEIncome, tvEndDateEIncome;
     Calendar dateAndTimeIncome = Calendar.getInstance();
     BarChart barChartIncome;
@@ -39,6 +41,11 @@ public class Statistics_income extends AppCompatActivity {
 
         tvStartDateIncome = findViewById(R.id.tvStartDateIncome);
         tvEndDateIncome = findViewById(R.id.tvEndDateIncome);
+
+        btnSetStartIncome = findViewById(R.id.btnSetStartIncome);
+        btnSetEndDateIncome = findViewById(R.id.btnSetEndDateIncome);
+        btnMakeStatCosts = findViewById(R.id.btnMakeStatCosts);
+
 
         tvStartDateEIncome = findViewById(R.id.tvStartDateEIncome);
         tvEndDateEIncome = findViewById(R.id.tvEndDateEIncome);

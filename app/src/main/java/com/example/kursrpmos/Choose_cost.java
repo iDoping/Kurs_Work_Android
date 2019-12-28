@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
     ArrayList<String> listItem;
     ArrayAdapter adapter;
     TextView selectedCost;
+    Button btnDelete;
 
     /**
      * Задаёт начальную установку параметров при инициализации активности
@@ -31,6 +33,7 @@ public class Choose_cost extends AppCompatActivity implements CustomDialogFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_cost);
+        btnDelete = findViewById(R.id.btnDeleteNewCost);
         selectedCost = findViewById(R.id.SelectedCost);
         dbHelper = new DBHelper(this);
         listItem = new ArrayList<>();

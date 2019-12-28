@@ -24,7 +24,7 @@ import java.util.List;
 public class Income extends AppCompatActivity {
 
     TextView tvIncomeDateForSQL;
-    Button btnAddIncomes;
+    Button btnAddIncomes,btnAddIncDate;
     DBHelper dbHelper;
     EditText etSumIncome, etDateIncome;
     Spinner spinIncCat;
@@ -41,7 +41,7 @@ public class Income extends AppCompatActivity {
         setContentView(R.layout.activity_income);
 
         btnAddIncomes = findViewById(R.id.btnAddIncomes);
-
+        btnAddIncDate = findViewById(R.id.btnAddIncDate);
         etSumIncome = findViewById(R.id.etSumIncome);
         etSumIncome.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
         etSumIncome.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
