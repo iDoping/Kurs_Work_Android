@@ -16,19 +16,11 @@ public class Statistics_incomeTest {
     public ActivityTestRule<Statistics_income> mActivityRule = new ActivityTestRule<>(Statistics_income.class);
 
     @Test
-    public void onSetStartIncomeCLick() {
+    public void onMakeStatIncomeClick() {
         Espresso.onView(withId(R.id.btnSetStartIncome)).perform(click());
         Espresso.onView(withId(android.R.id.button1)).perform(click());
-    }
-
-    @Test
-    public void onSetEndDateIncome() {
         Espresso.onView(withId(R.id.btnSetEndDateIncome)).perform(click());
         Espresso.onView(withId(android.R.id.button1)).perform(click());
-    }
-
-    @Test
-    public void onMakeStatIncomeClick() {
         Espresso.onView(withId(R.id.btnMakeStatIncome)).perform(click());
     }
 }

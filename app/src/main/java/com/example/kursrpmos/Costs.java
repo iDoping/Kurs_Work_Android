@@ -26,7 +26,7 @@ import java.util.List;
 public class Costs extends AppCompatActivity {
 
     TextView tvCostDateForSQL, tvPlansText;
-    Button btnAddCosts;
+    Button btnAddCosts,btnAddCostDate;
     DBHelper dbHelper;
     EditText etSum, etDate;
     Spinner spinner;
@@ -42,6 +42,7 @@ public class Costs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_costs);
 
+        btnAddCostDate = findViewById(R.id.btnAddCostDate);
         btnAddCosts = findViewById(R.id.btnAddCosts);
 
         etSum = findViewById(R.id.etSumm);

@@ -16,21 +16,12 @@ public class StatisticsTest {
     @Rule
     public ActivityTestRule<Statistics> mActivityRule = new ActivityTestRule<>(Statistics.class);
 
-
-    @Test
-    public void onSetStartDateCLick() {
-        Espresso.onView(withId(R.id.btnSetStartCosts)).perform(click());
-        Espresso.onView(withId(android.R.id.button1)).perform(click());
-    }
-
-    @Test
-    public void onEndStartDateCLick() {
-        Espresso.onView(withId(R.id.btnSetEndDateCosts)).perform(click());
-        Espresso.onView(withId(android.R.id.button1)).perform(click());
-    }
-
     @Test
     public void onMakeStatClick() {
+        Espresso.onView(withId(R.id.btnSetStartCosts)).perform(click());
+        Espresso.onView(withId(android.R.id.button1)).perform(click());
+        Espresso.onView(withId(R.id.btnSetEndDateCosts)).perform(click());
+        Espresso.onView(withId(android.R.id.button1)).perform(click());
         Espresso.onView(withId(R.id.btnMakeStatCosts)).perform(click());
     }
 }

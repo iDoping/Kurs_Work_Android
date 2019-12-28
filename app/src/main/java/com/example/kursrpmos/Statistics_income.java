@@ -44,7 +44,7 @@ public class Statistics_income extends AppCompatActivity {
 
         btnSetStartIncome = findViewById(R.id.btnSetStartIncome);
         btnSetEndDateIncome = findViewById(R.id.btnSetEndDateIncome);
-        btnMakeStatCosts = findViewById(R.id.btnMakeStatCosts);
+        btnMakeStatCosts = findViewById(R.id.btnMakeStatIncome);
 
 
         tvStartDateEIncome = findViewById(R.id.tvStartDateEIncome);
