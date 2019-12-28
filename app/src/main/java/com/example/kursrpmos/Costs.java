@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,6 +46,7 @@ public class Costs extends AppCompatActivity {
 
         etSum = findViewById(R.id.etSumm);
         etSum.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+        etSum.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
         etDate = findViewById(R.id.etDate);
 
         dbHelper = new DBHelper(this);
@@ -73,7 +76,7 @@ public class Costs extends AppCompatActivity {
                     tvPlansText.setText("");
                 } else {
                     if (Double.valueOf(temp) < 0) {
-                        tvPlansText.setText("Лимит категории " + value + " превышен");
+                        tvPlansText.setText("Лимит категории " + value + " превышен на " + temp + " рублей");
                     } else {
                         tvPlansText.setText("Лимит категории " + value + " составляет " + temp + " рублей");
                     }

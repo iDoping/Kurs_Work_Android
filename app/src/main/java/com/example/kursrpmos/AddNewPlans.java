@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,7 +37,8 @@ public class AddNewPlans extends AppCompatActivity {
 
         btnAddNewPlan = findViewById(R.id.btnAddNewPlan);
         etPlanAmount = findViewById(R.id.etPlanAmount);
-        etPlanAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
+        etPlanAmount.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+        etPlanAmount.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
         spinPlanCat = findViewById(R.id.spinPlanCat);
         dbHelper = new DBHelper(this);
         loadSpinnerData();

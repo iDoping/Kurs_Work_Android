@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,6 +44,7 @@ public class Income extends AppCompatActivity {
 
         etSumIncome = findViewById(R.id.etSumIncome);
         etSumIncome.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+        etSumIncome.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
         etDateIncome = findViewById(R.id.etDateIncome);
 
         dbHelper = new DBHelper(this);

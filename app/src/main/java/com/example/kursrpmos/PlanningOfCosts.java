@@ -90,11 +90,15 @@ public class PlanningOfCosts extends AppCompatActivity implements CustomDialogFr
      * Удаляет выбранный лимит
      */
     public void onYesClickedPlans() {
-        dbHelper.deletePlans(selectedPlan.getText().toString());
-        plansListItem.clear();
-        selectPlansToList();
-        selectedPlan.setText("");
-        Toast.makeText(getApplicationContext(), "Лимит удален", Toast.LENGTH_SHORT).show();
+        if (selectedPlan.getText().equals("")){
+            Toast.makeText(getApplicationContext(), "Необходимо выбрать лимит для удаления", Toast.LENGTH_SHORT).show();
+        } else {
+            dbHelper.deletePlans(selectedPlan.getText().toString());
+            plansListItem.clear();
+            selectPlansToList();
+            selectedPlan.setText("");
+            Toast.makeText(getApplicationContext(), "Лимит удален", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

@@ -61,7 +61,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_COSTS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, COST_DATE TEXT, COST_CATEGORY INTEGER, COST_SUM REAL,CONSTRAINT COST_CATEGORY FOREIGN KEY(COST_CATEGORY) REFERENCES typecosts(_id) ON DELETE CASCADE)");
-        db.execSQL("CREATE TABLE " + TABLE_TYPECOSTS + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_COST TEXT,START_LIMIT REAL,PERIODIC_LIMIT REAL,RESET_MONTH text)");
+        db.execSQL("CREATE TABLE " + TABLE_TYPECOSTS + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_COST TEXT,START_LIMIT REAL,PERIODIC_LIMIT REAL,RESET_MONTH TEXT)");
         db.execSQL("CREATE TABLE " + TABLE_INCOMES + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, INC_DATE TEXT, INC_CATEGORY INTEGER, INC_SUM REAL, CONSTRAINT INC_CATEGORY FOREIGN KEY(INC_CATEGORY) REFERENCES typeincomes(_id) ON DELETE CASCADE)");
         db.execSQL("CREATE TABLE " + TABLE_TYPEINCOMES + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME_OF_INC TEXT)");
         db.execSQL("INSERT INTO typecosts(NAME_OF_COST) VALUES ('Еда')");
@@ -122,9 +122,9 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * Добавление нового дохода в таблицу
      *
-     * @param label1 Сумма расхода
-     * @param label2 Дата расхода
-     * @param label3 Категория расхода
+     * @param label1 Сумма дохода
+     * @param label2 Дата дохода
+     * @param label3 Категория дохода
      */
     public void insertIncome(String label1, String label2, String label3) {
         SQLiteDatabase db = this.getWritableDatabase();
